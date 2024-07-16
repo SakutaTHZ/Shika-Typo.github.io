@@ -35,6 +35,7 @@
 
 body {
     background: var(--bgcolor);
+    overflow: hidden;
 }
 
 section {
@@ -335,4 +336,14 @@ section {
     .rightCnt,.wrongCnt{
         color: var(--lightShadow);
     }
+}
+
+.successScreen{
+    position: fixed;
+    width: 100dvw;
+    height: 100dvh;
+    inset: 0;
+    background: rgba(0, 0, 0, .5);
+    z-index: -100;
+    backdrop-filter: blur(5px);
 }
