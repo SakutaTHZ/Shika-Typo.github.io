@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyboard Simulator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer></script>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+
+<body>
+    <section class="center">
+        <div class="typeBox">
+            <span class="current">G</span>
+            <span>E</span>
+            <span>N</span>
+            <span>E</span>
+            <span>R</span>
+            <span>A</span>
+            <span>T</span>
+            <span>I</span>
+            <span>N</span>
+            <span>G</span>
+            <span>.</span>
+            <span>.</span>
+            <span>.</span>
+        </div>
+
+        <div class="keyboard center key60">
+            <div class="commandRow center">
+                <button class="resetbutton center" onclick="resetData()">
+                    <span class="material-symbols-outlined">
+                        restart_alt
+                    </span>
+                    Esc to reset
+                </button>
+                <div class="wordsCount center" title="word count">
+                    <span class="material-symbols-outlined">
+                        text_increase
+                    </span>
+                    <button class="active" onclick="setWords(1)">10</button>
+                    <button onclick="setWords(2)">15</button>
+                    <button onclick="setWords(3)">20</button>
+                    <button onclick="setWords(4)">movie</button>
+                </div>
+                <div class="animationBox center" title="animations">
+                    <span class="material-symbols-outlined">animation</span>
+                    <button class="active" onclick="animationmode(1)">slow</button>
+                    <button onclick="animationmode(2)">fast</button>
+                    <button onclick="animationmode(3)">off</button>
+                </div>
+                <div class="counter center">
+                    <div class="rightBox center">
+                        <span class="material-symbols-outlined">check</span>
+                        <span class="rightCnt">0</span>
+                    </div>
+                    <div class="wrongBox center">
+                        <span class="material-symbols-outlined">close</span>
+                        <span class="wrongCnt">0</span>
+                    </div>
+                </div>
+                <div class="progressBar center">
+                    <span class="material-symbols-outlined">progress_activity</span>
+                    <div class="progress"></div>
+                </div>
+                <div class="timer center">
+                    <span class="material-symbols-outlined">timer</span>
+                    <div class="timeLeft center">
+                        <span class="min1">0</span>
+                        <span class="min2">0</span>
+                        <span>:</span>
+                        <span class="sec1">0</span>
+                        <span class="sec2">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

@@ -1,0 +1,338 @@
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+NG+Modern:wght@100..400&family=Quicksand:wght@300..700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: var(--hightlightColor);
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+:root {
+    /* Colors */
+    --bgcolor: black;
+    --priColor: #ffba52;
+    --secColor: #ff2f00;
+    --hightlightColor: #FFC600;
+    --fontColor: white;
+    --lightShadow: rgba(255, 255, 255, .3);
+    --darkShadow: rgba(0, 0, 0, 0.3);
+
+    --keyColor: var(--hightlightColor);
+    --keyFontColor: var(--bgcolor);
+
+    /* Fonts */
+    --font1: "Quicksand", sans-serif;
+    --font2: "Playwrite NG Modern", cursive;
+    --normal-fontSize: calc(0.1vw + 2vh);
+    --title-fontsize: calc(2vw + 2vh);
+}
+
+body {
+    background: var(--bgcolor);
+}
+
+section {
+    background: var(--bgcolor);
+    width: 100dvw;
+    height: 100dvh;
+
+    flex-direction: column;
+    justify-content: flex-end !important;
+    padding-bottom: 50px;
+    gap: 40px;
+}
+
+.title {
+    color: var(--fontColor);
+    font-family: var(--font2);
+}
+
+.keyboard {
+    border: 1px solid var(--lightShadow);
+    padding: 10px;
+    border-radius: 10px;
+    flex-direction: column;
+    gap: 3px;
+
+    .keyrow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        gap: 3px;
+
+        .key {
+            position: relative;
+            padding: 10px;
+            background: var(--bgcolor);
+            border-radius: 4px;
+            box-shadow: inset 0 0 5px var(--darkShadow), inset 0 0 20px var(--darkShadow);
+            border: 1px solid var(--lightShadow);
+            transform-style: preserve-3d;
+            transform: perspective(2000px);
+            z-index: 2;
+
+            width: 72px;
+            height: 72px;
+            transition: .5s ease-in-out,0s z-index ease-in-out;
+
+            p,
+            span {
+                color: var(--hightlightColor);
+                font-family: var(--font1);
+                font-size: var(--normal-fontSize);
+                font-weight: 900;
+                position: absolute;
+            }
+
+            span {
+                font-size: calc(var(--normal-fontSize)/1.25) ;
+                bottom: 8px;
+                right: 8px;
+            }
+
+            p {
+                position: relative;
+                inset: 4px;
+                text-wrap: nowrap;
+
+                span {
+                    position: relative;
+                }
+            }
+        }
+        .key.highlight{
+            border: 1px solid var(--hightlightColor);
+            background: var(--priColor);
+            p,
+            span {
+                color: var(--bgcolor);
+            }
+        }
+        .key:hover {
+            /* box-shadow: 0 0 10px var(--hightlightColor),0 0 20px var(--hightlightColor); */
+            scale: 1.25;
+            z-index: 10;
+            transform: translateZ(200px);
+            animation: 3s rgb linear alternate infinite;
+            border: 1px solid var(--hightlightColor);
+            p,
+            span {
+                color: var(--hightlightColor);
+            }
+        }
+    
+        /* To check the right side */
+        .key:hover+* {
+            scale: 1.1;
+            z-index: 9;
+            border: 1px solid var(--hightlightColor);
+            transform: translateZ(150px) rotateY(20deg);
+            /* box-shadow: 0 0 10px var(--hightlightColor); */
+            animation: 3s rgb linear alternate infinite;
+        }
+    
+        .key:hover+*+* {
+            scale: 1.05;
+            z-index: 8;
+            border: 1px solid var(--hightlightColor);
+            transform: translateZ(70px) rotateY(15deg);
+            /* box-shadow: 0 0 10px var(--hightlightColor); */
+            animation: 3s rgb linear alternate infinite;
+        }
+    
+        .key:hover+*+*+* {
+            z-index: 7;
+            border: 1px solid var(--hightlightColor);
+            transform: translateZ(30px) rotateY(5deg);
+            /* box-shadow: 0 0 10px var(--hightlightColor); */
+            animation: 3s rgb linear alternate infinite;
+        }
+    
+        /* To check the right side */
+        .key:has(+ *:hover) {
+            scale: 1.1;
+            z-index: 9;
+            border: 1px solid var(--hightlightColor);
+            transform: translateZ(150px) rotateY(-20deg);
+            /* box-shadow: 0 0 10px var(--hightlightColor); */
+            animation: 3s rgb linear alternate infinite;
+        }
+    
+        .key:has(+* + *:hover) {
+            scale: 1.05;
+            z-index: 8;
+            border: 1px solid var(--hightlightColor);
+            transform: translateZ(70px) rotateY(-15deg);
+            /* box-shadow: 0 0 10px var(--hightlightColor); */
+            animation: 3s rgb linear alternate infinite;
+        }
+    
+        .key:has(+ * + * + *:hover) {
+            z-index: 7;
+            border: 1px solid var(--hightlightColor);
+            transform: translateZ(30px) rotateY(-5deg);
+            /* box-shadow: 0 0 10px var(--hightlightColor); */
+            animation: 3s rgb linear alternate infinite;
+        }
+
+        .key.leftCtrl,
+        .key.leftWin,
+        .key.leftAlt,
+        .key.rightAlt,
+        .key.fn,
+        .key.rightCtrl {
+            width: 90px;
+        }
+
+        .key.tab,
+        .key.backslash {
+            width: 108px;
+        }
+
+        .key.capslock {
+            width: 128px;
+        }
+        .key.capslock.active {
+            box-shadow: 0 0 10px var(--priColor);
+            p,
+            span {
+                color: var(--priColor) !important;
+            }
+        }
+
+        .key.backspace {
+            width: 144px;
+        }
+
+        .key.leftShift,
+        .key.enter {
+            width: 162px;
+        }
+
+        .key.rightShift {
+            width: 204px;
+        }
+
+        .key.spacebar {
+            width: 486px;
+        }
+    }
+}
+@keyframes rgb {
+    from{
+        filter: hue-rotate(0deg);
+    }to{
+        filter: hue-rotate(360deg);
+    }
+}
+
+.typeBox{
+    text-align: center;
+    width: 75dvw;
+    padding-bottom: 10px;
+    span{
+        font-size: calc(var(--title-fontsize)/1.5);
+        font-family: var(--font1);
+        color: var(--lightShadow);
+        padding: 3px .5px;
+    }
+    span.right{
+        color: var(--hightlightColor);
+    }
+    span.wrong{
+        color: var(--secColor);
+    }
+    span.current{
+        animation: .5s currentblink linear alternate infinite;
+    }
+    .space.wrong{
+        display: inline-flex;
+        width: 10px;
+        border-bottom:1px solid var(--secColor);
+    }
+}
+
+@keyframes currentblink {
+    from{
+        border-bottom: 3px solid transparent;
+    }to{
+        border-bottom: 3px solid var(--hightlightColor);
+    }
+}
+
+.commandRow{
+    background:rgba(255, 255, 255, .1);
+    width: 100%;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    .resetbutton{
+        background: none;
+        border: none;
+        color: var(--lightShadow);
+        padding: 3px 15px 3px 10px;
+        gap: 10px;
+        text-wrap: nowrap;
+    }
+    .resetbutton:hover{
+        background: var(--bgcolor);
+        border-radius: 20px;
+        cursor: pointer;
+    }
+    .wordsCount,.animationBox,.progressBar,.timer,.counter{
+        padding: 3px 15px;
+        margin-left: 5px;
+        gap: 10px;
+        border-left: 3px solid var(--bgcolor);
+        span{
+            margin-right: 5px;
+        }
+        button{
+            background: none;
+            border: none;
+            color: var(--lightShadow);
+        }button:hover{
+            color: var(--priColor);
+            cursor: pointer;
+        }
+        button.active{
+            color: var(--hightlightColor) !important;
+        }
+    }
+    .progressBar{
+        width: 100%;
+        height: 100%;
+        .progress{
+            position: relative;
+            background: var(--bgcolor);
+            height: 100%;
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 5px solid var(--bgcolor);
+        }
+        .progress::before{
+            content: '';
+            position: absolute;
+            inset: 0;
+            width: var(--progress-width, 0%);
+            height: 100%;
+            background: var(--hightlightColor);
+            border-radius: 5px;
+            transition: .2s ease-in-out;
+        }
+    }
+    .rightCnt,.wrongCnt{
+        color: var(--lightShadow);
+    }
+}
