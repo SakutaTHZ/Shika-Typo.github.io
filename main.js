@@ -174,6 +174,8 @@ let mode = 4;
 let animationSpeed = 1
 let timerInterval;
 let timer = 0;
+let typetrig = 0;
+let mistakes = 0;
 
 const lightUp = (keyElement) => {
     if (keyElement) {
@@ -219,10 +221,12 @@ const checkLetter = (letter) => {
         } else {
             currentLetter.classList.add('wrong')
             wrongCnt++
+            mistakes++
         }
 
         if (currentWord == wordCnt) {
             //Win Condition
+            activateEndscreen()
         } else {
             currentWord++;
         }
@@ -249,14 +253,16 @@ const calculatePercent = () => {
 }
 
 document.addEventListener('keydown', function (event) {
-    const code = event.code;
-    const keyElement = document.querySelector(`.key.${keybinds[code].name}`);
-
-    lightUp(keyElement)
-    if (keybinds[code].name == "Esc") {
-        resetData()
-    } else {
-        checkLetter(keybinds[code].text)
+    if(typetrig == 0){
+        const code = event.code;
+        const keyElement = document.querySelector(`.key.${keybinds[code].name}`);
+    
+        lightUp(keyElement)
+        if (keybinds[code].name == "Esc") {
+            resetData()
+        } else {
+            checkLetter(keybinds[code].text)
+        }
     }
 });
 
@@ -286,10 +292,12 @@ for (const [row, keyArray] of Object.entries(keys)) {
 }
 
 function handleClick(keyname) {
-    const keyElement = document.querySelector(`.key.${keyname}`);
+    if(typetrig == 0){
+        const keyElement = document.querySelector(`.key.${keyname}`);
 
-    lightUp(keyElement)
-    checkLetter(keyname)
+        lightUp(keyElement)
+        checkLetter(keyname)
+    }
 }
 
 async function fetchRandomWords(amount) {
@@ -383,11 +391,13 @@ const setMode = (mode) => {
 }
 
 const resetData = () => {
+    typetrig = 0;
     currentWord = 1;
     wordCnt = 0;
     rightCnt = 0;
     wrongCnt = 0;
     timer = 0;
+    mistakes = 0;
 
     const typeBox = document.querySelector('.typeBox');
     typeBox.innerHTML = ''; // Clear previous content
@@ -455,3 +465,51 @@ function startTimer() {
     }, 1000);
 }
 
+const activateEndscreen = ()=>{
+    typetrig = 1
+    const endscreen = document.querySelector('.successScreen')
+    if(endscreen){
+        console.log('endscreen removed')
+        endscreen.remove()
+    }else{
+        console.log('endscreen added')
+        var screen = document.createElement('div')
+        screen.className = 'successScreen center'
+        screen.innerHTML = `
+            <div class="resultBox center">
+                <div class="box">
+                    Total - <span>${wordCnt}</span>
+                </div>
+                <div class="box">
+                    Right - <span>${rightCnt}</span>
+                </div>
+                <div class="box">
+                    Wrong - <span>${wrongCnt}</span>
+                </div>
+                <div class="box">
+                    Mistakes - <span>${mistakes}</span>
+                </div>
+                <div class="box">
+                    Time - <span>${timer}s</span>
+                </div>
+            </div>
+            <span class="congratsContainer center">
+                <span>C</span>
+                <span>O</span>
+                <span>N</span>
+                <span>G</span>
+                <span>R</span>
+                <span>A</span>
+                <span>T</span>
+                <span>S</span>
+            </span>
+            <button onclick="restart()">Restart</button>
+        `
+        document.querySelector('body').append(screen)
+    }
+}
+
+const restart = ()=>{
+    activateEndscreen()
+    resetData()
+}

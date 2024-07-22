@@ -48,6 +48,10 @@ section {
     padding-bottom: 50px;
     gap: 40px;
 }
+.shikaTypo{
+    font-size: calc(var(--normal-fontSize) *2);
+    font-family: var(--font2);
+}
 
 .title {
     color: var(--fontColor);
@@ -344,6 +348,100 @@ section {
     height: 100dvh;
     inset: 0;
     background: rgba(0, 0, 0, .5);
-    z-index: -100;
-    backdrop-filter: blur(5px);
+    z-index: 100;
+    backdrop-filter: blur(20px);
+    .congratsContainer{
+        height: 100%;
+        gap: 10px;
+        span{
+            position: absolute;
+            bottom: 50%;
+            font-size: 8vw;
+            text-shadow: 0 0 10px var(--darkShadow);
+            animation: floatup linear;
+            animation-fill-mode: forwards;
+        }
+        span:nth-child(1){
+            left: 11%;
+            animation-duration: 0.3s;
+        }
+        span:nth-child(2){
+            left: 21%;
+            animation-duration: 0.5s;
+        }
+        span:nth-child(3){
+            left: 31%;
+            animation-duration: 0.7s;
+        }
+        span:nth-child(4){
+            left: 41%;
+            animation-duration: 0.9s;
+        }
+        span:nth-child(5){
+            right: 41%;
+            animation-duration: 1.1s;
+        }
+        span:nth-child(6){
+            right: 31%;
+            animation-duration: 1.3s;
+        }
+        span:nth-child(7){
+            right: 21%;
+            animation-duration: 1.5s;
+        }
+        span:nth-child(8){
+            right: 11%;
+            animation-duration: 1.7s;
+        }
+    }
+    
+    button{
+        position: absolute;
+        background: var(--priColor);
+        color: var(--bgcolor);
+        border: 0;
+        font-size: var(--normal-fontSize);
+        padding: 10px 30px;
+        border-radius: 10px;
+        bottom: 30%;
+        animation: 1s appear linear;
+    }
+    button:hover{
+        background: var(--hightlightColor);
+        cursor: pointer;
+    }
+}
+@keyframes floatup {
+    from{
+        bottom: 0;
+        transform: rotate(10deg) scale(.1);
+    }
+    to{
+        bottom: 50%;
+        transform: rotate(0deg) scale(1);
+    }
+}
+@keyframes appear {
+    from{
+        opacity: 0;
+        scale: 0;
+    }to{
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+.resultBox{
+    gap: 5vw;
+    position: absolute;
+    bottom: 40%;
+    border: 1px solid var(--lightShadow);
+    padding: 10px 50px;
+    border-radius: 10px;
+    background: var(--darkShadow);
+    backdrop-filter: blur(10px);
+    div{
+        color: var(--lightShadow);
+        font-size: larger;
+    }
 }
