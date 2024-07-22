@@ -176,6 +176,7 @@ let timerInterval;
 let timer = 0;
 let typetrig = 0;
 let mistakes = 0;
+let count= 0;
 
 const lightUp = (keyElement) => {
     if (keyElement) {
@@ -213,6 +214,7 @@ const checkLetter = (letter) => {
         return
     }
     else {
+        count++
         if (letter.toLowerCase() == currentLetter.innerHTML.toLowerCase() ||
             (letter.toLowerCase() == "spacebar" && currentLetter.innerHTML == " ")
         ) {
@@ -398,6 +400,7 @@ const resetData = () => {
     wrongCnt = 0;
     timer = 0;
     mistakes = 0;
+    count= 0;
 
     const typeBox = document.querySelector('.typeBox');
     typeBox.innerHTML = ''; // Clear previous content
@@ -467,6 +470,10 @@ function startTimer() {
 
 const activateEndscreen = ()=>{
     typetrig = 1
+
+    let wpm = 0
+    wpm = (count/5)/(timer/60)
+
     const endscreen = document.querySelector('.successScreen')
     if(endscreen){
         console.log('endscreen removed')
@@ -477,6 +484,9 @@ const activateEndscreen = ()=>{
         screen.className = 'successScreen center'
         screen.innerHTML = `
             <div class="resultBox center">
+                <div class="box">
+                    WPM - <span>${wpm}</span>
+                </div>
                 <div class="box">
                     Total - <span>${wordCnt}</span>
                 </div>
