@@ -227,6 +227,8 @@ section {
 
         .key.spacebar {
             width: 486px;
+            font-family: var(--font1);
+            letter-spacing: .05em;
         }
     }
 }
@@ -280,6 +282,39 @@ section {
     border-radius: 20px;
     flex-direction: row;
     justify-content: flex-start;
+    .tag{
+        position:relative;
+    }
+    .tag::before{
+        content: attr(data-tag);
+        position: absolute;
+        width: 100%;
+        background: var(--lightShadow);
+        height: 100%;
+        bottom: 0%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--bgcolor);
+        font-family: var(--font1);
+        font-weight: 600;
+        padding: 5px 10px;
+        border-radius: 4px;
+        min-width: fit-content;
+        text-wrap: nowrap;
+        opacity: 0;
+        backdrop-filter: blur(10px);
+        scale: 0;
+        transition: opacity 0.8s linear,scale .5s linear,bottom .4s linear;
+    }
+    .tag:hover{
+        cursor: help;
+    }
+    .tag:hover::before{
+        bottom: 140%;
+        scale: 1;
+        opacity: 1;
+    }
 
     .resetbutton{
         background: none;
@@ -403,7 +438,7 @@ section {
         font-size: var(--normal-fontSize);
         padding: 10px 30px;
         border-radius: 10px;
-        bottom: 30%;
+        bottom: 25%;
         animation: 1s appear linear;
     }
     button:hover{
@@ -434,7 +469,7 @@ section {
 .resultBox{
     gap: 5vw;
     position: absolute;
-    bottom: 40%;
+    bottom: 35%;
     border: 1px solid var(--lightShadow);
     padding: 10px 50px;
     border-radius: 10px;
@@ -444,4 +479,10 @@ section {
         color: var(--lightShadow);
         font-size: larger;
     }
+}
+.resultText{
+    position: absolute;
+    bottom: 45%;
+    font-family: var(--font2);
+    font-size: var(--normal-fontSize);
 }

@@ -32,13 +32,13 @@
 
         <div class="keyboard center key60">
             <div class="commandRow center">
-                <button class="resetbutton center" onclick="resetData()">
+                <button class="resetbutton center tag" onclick="resetData()">
                     <span class="material-symbols-outlined">
                         restart_alt
                     </span>
                     Esc to reset
                 </button>
-                <div class="wordsCount center" title="word count">
+                <div class="wordsCount center tag" title="word count" data-tag="Words Count/Mode">
                     <span class="material-symbols-outlined">
                         text_increase
                     </span>
@@ -47,13 +47,13 @@
                     <button onclick="setWords(3)">20</button>
                     <button onclick="setWords(4)">movie</button>
                 </div>
-                <div class="animationBox center" title="animations">
+                <div class="animationBox center tag" title="animations" data-tag="Animation Speed">
                     <span class="material-symbols-outlined">animation</span>
                     <button class="active" onclick="animationmode(1)">slow</button>
                     <button onclick="animationmode(2)">fast</button>
                     <button onclick="animationmode(3)">off</button>
                 </div>
-                <div class="counter center">
+                <div class="counter center tag" data-tag="Right/Wrong Count">
                     <div class="rightBox center">
                         <span class="material-symbols-outlined">check</span>
                         <span class="rightCnt">0</span>
@@ -63,11 +63,11 @@
                         <span class="wrongCnt">0</span>
                     </div>
                 </div>
-                <div class="progressBar center">
+                <div class="progressBar center tag" data-tag="Progress Bar">
                     <span class="material-symbols-outlined">progress_activity</span>
                     <div class="progress"></div>
                 </div>
-                <div class="timer center">
+                <div class="timer center tag" data-tag="Timer">
                     <span class="material-symbols-outlined">timer</span>
                     <div class="timeLeft center">
                         <span class="min1">0</span>

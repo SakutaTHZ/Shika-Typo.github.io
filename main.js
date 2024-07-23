@@ -166,6 +166,59 @@ const keybinds = {
     End: { name: "M", text: "m" },
 };
 
+const wpmrate = {
+    belowAverage: ["You need to try harder", "A turtle can type faster than you", "I fell asleep while waiting for you to type"],
+    average: ["You have average typing speed", "That was Okay", "Try better next time"],
+    aboveAverage: ["Good Job! That was above average", "You are better than 60% of the people, I guess", "You are getting good"],
+    fast: ["Oh! That was fast", "You suprised me", "Try getting 69 next time"],
+    veryFast: ["Slow down. No ones following you", "Put some ice on your fingers", "Fast and furious baby"],
+    expert: ["You better be a typist", "Try changing your profession to a typist", "Hmm, Are you Cheating?"],
+}
+const resultgenerate = (result) => {
+    let text = ""
+    switch (result) {
+        case "belowAverage":
+            text = wpmrate["belowAverage"][Math.floor(Math.random() * wpmrate["belowAverage"].length)]
+            break;
+        case "average":
+            text = wpmrate["average"][Math.floor(Math.random() * wpmrate["average"].length)]
+            break;
+        case "aboveAverage":
+            text = wpmrate["aboveAverage"][Math.floor(Math.random() * wpmrate["aboveAverage"].length)]
+            break;
+        case "fast":
+            text = wpmrate["fast"][Math.floor(Math.random() * wpmrate["fast"].length)]
+            break;
+        case "veryFast":
+            text = wpmrate["veryFast"][Math.floor(Math.random() * wpmrate["veryFast"].length)]
+            break;
+        case "expert":
+            text = wpmrate["expert"][Math.floor(Math.random() * wpmrate["expert"].length)]
+            break;
+        default:
+            text = "Can't calculate Data"
+            break;
+    }
+    return text
+}
+function categorizeWPM(wpm) {
+    if (wpm < 30) {
+      return "belowAverage";
+    } else if (wpm >= 30 && wpm < 40) {
+      return "average";
+    } else if (wpm >= 40 && wpm < 60) {
+      return "aboveAverage";
+    } else if (wpm >= 60 && wpm < 80) {
+      return "fast";
+    } else if (wpm >= 80 && wpm < 100) {
+      return "veryFast";
+    } else if (wpm >= 100) {
+      return "expert";
+    } else {
+      return "Invalid WPM";
+    }
+  }
+
 let currentWord = 1;
 let wordCnt = 0;
 let rightCnt = 0;
@@ -176,7 +229,7 @@ let timerInterval;
 let timer = 0;
 let typetrig = 0;
 let mistakes = 0;
-let count= 0;
+let count = 0;
 
 const lightUp = (keyElement) => {
     if (keyElement) {
@@ -198,7 +251,7 @@ const checkLetter = (letter) => {
     })
 
     if (letter == "backspace") {
-        if(lastLetter){
+        if (lastLetter) {
             if (lastLetter.classList.contains('right')) {
                 lastLetter.classList.remove('right')
                 rightCnt--
@@ -210,7 +263,7 @@ const checkLetter = (letter) => {
             currentLetter.classList.remove('wrong')
             currentWord = currentWord == 1 ? 1 : currentWord - 1;
         }
-    }else if(letter == "rightShift"||letter == "leftShift"||letter == "capslock"||letter == "tab"){
+    } else if (letter == "rightShift" || letter == "leftShift" || letter == "capslock" || letter == "tab") {
         return
     }
     else {
@@ -242,28 +295,32 @@ const checkLetter = (letter) => {
     calculatePercent()
 }
 
-const resetCnt = ()=>{
+const resetCnt = () => {
     document.querySelector('.rightCnt').innerHTML = rightCnt
     document.querySelector('.wrongCnt').innerHTML = wrongCnt
 }
 
 const calculatePercent = () => {
-    var percent = 100/wordCnt * currentWord
+    var percent = 100 / wordCnt * currentWord
     const progressElement = document.querySelector('.progress');
 
     progressElement.style.setProperty('--progress-width', `${percent}%`);
 }
 
 document.addEventListener('keydown', function (event) {
-    if(typetrig == 0){
-        const code = event.code;
+    const code = event.code;
+    if (typetrig == 0) {
         const keyElement = document.querySelector(`.key.${keybinds[code].name}`);
-    
+
         lightUp(keyElement)
         if (keybinds[code].name == "Esc") {
             resetData()
         } else {
             checkLetter(keybinds[code].text)
+        }
+    } else {
+        if (code == "KeyF") {
+            restart()
         }
     }
 });
@@ -294,7 +351,7 @@ for (const [row, keyArray] of Object.entries(keys)) {
 }
 
 function handleClick(keyname) {
-    if(typetrig == 0){
+    if (typetrig == 0) {
         const keyElement = document.querySelector(`.key.${keyname}`);
 
         lightUp(keyElement)
@@ -311,6 +368,7 @@ async function fetchRandomWords(amount) {
         const words = await response.json();
         const sentence = words.join(' ');
         wordCnt = sentence
+        document.querySelector('.spacebar').innerHTML = "-"
         displayLetters(sentence, animationSpeed);
         countLetters(sentence);
     } catch (error) {
@@ -324,6 +382,8 @@ async function fetchMovieLine() {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const movieLine = await response.json();
+        console.log(movieLine)
+        document.querySelector('.spacebar').innerHTML = movieLine.author
         displayLetters(movieLine.content, animationSpeed);
         countLetters(movieLine.content);
     } catch (error) {
@@ -339,10 +399,10 @@ async function displayLetters(sentence, animationSpeed) {
         span.textContent = letter.toLowerCase();
         if (letter == " ") {
             span.classList.add('space')
-        }else if(letter === ";"|| letter === "!" || letter === "-" || letter === "…"){
+        } else if (letter === ";" || letter === "!" || letter === "-" || letter === "…") {
             continue;
         }
-        
+
         typeBox.appendChild(span);
 
         if (animationSpeed != 0) {
@@ -400,7 +460,7 @@ const resetData = () => {
     wrongCnt = 0;
     timer = 0;
     mistakes = 0;
-    count= 0;
+    count = 0;
 
     const typeBox = document.querySelector('.typeBox');
     typeBox.innerHTML = ''; // Clear previous content
@@ -468,18 +528,17 @@ function startTimer() {
     }, 1000);
 }
 
-const activateEndscreen = ()=>{
+const activateEndscreen = () => {
     typetrig = 1
 
     let wpm = 0
-    wpm = (count/5)/(timer/60)
+    wpm = Math.round((count / 5) / (timer / 60))
+    console.log(wpm+ " " + resultgenerate(categorizeWPM(wpm)) + " " +categorizeWPM(wpm) + " " + resultgenerate("fast"))
 
     const endscreen = document.querySelector('.successScreen')
-    if(endscreen){
-        console.log('endscreen removed')
+    if (endscreen) {
         endscreen.remove()
-    }else{
-        console.log('endscreen added')
+    } else {
         var screen = document.createElement('div')
         screen.className = 'successScreen center'
         screen.innerHTML = `
@@ -503,6 +562,7 @@ const activateEndscreen = ()=>{
                     Time - <span>${timer}s</span>
                 </div>
             </div>
+            <p class="resultText">${resultgenerate(categorizeWPM(wpm))}</p>
             <span class="congratsContainer center">
                 <span>C</span>
                 <span>O</span>
@@ -513,13 +573,13 @@ const activateEndscreen = ()=>{
                 <span>T</span>
                 <span>S</span>
             </span>
-            <button onclick="restart()">Restart</button>
+            <button onclick="restart()">Restart (Press F to restart)</button>
         `
         document.querySelector('body').append(screen)
     }
 }
 
-const restart = ()=>{
+const restart = () => {
     activateEndscreen()
     resetData()
 }
