@@ -191,7 +191,7 @@ section {
         .key.leftWin,
         .key.leftAlt,
         .key.rightAlt,
-        .key.fn,
+        .key.zen,
         .key.rightCtrl {
             width: 90px;
         }

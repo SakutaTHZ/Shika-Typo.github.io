@@ -68,7 +68,7 @@ var keys = {
         { mainLabel: "Alt", secLabel: "", bottomLabel: "←", className: "key rightAlt ArrowLeft" },
         { mainLabel: "Prt", secLabel: "", bottomLabel: "↓", className: "key prt ArrowDown" },
         { mainLabel: "Ctrl", secLabel: "", bottomLabel: "→", className: "key rightCtrl ArrowRight" },
-        { mainLabel: "Fn", secLabel: "", bottomLabel: "", className: "key fn" }
+        { mainLabel: "Zen", secLabel: "", bottomLabel: "", className: "key zen" }
     ]
 };
 
