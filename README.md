@@ -1,4 +1,4 @@
-# Shika-Type
+# Shika-Typo
 A Typing Simulator Like MonkeyType With A Working Keyboard???
 
 <img src="images/banner2.png">
