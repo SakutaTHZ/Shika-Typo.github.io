@@ -227,9 +227,11 @@ let mode = 4;
 let animationSpeed = 1
 let timerInterval;
 let timer = 0;
-let typetrig = 0;
+let typetrig = 1;
 let mistakes = 0;
 let count = 0;
+let sentences = 0;
+let zenwordCnt = 0;
 
 const lightUp = (keyElement) => {
     if (keyElement) {
@@ -240,10 +242,64 @@ const lightUp = (keyElement) => {
         }, 1000);
     }
 }
+const resetData = () => {
+    console.log('unlock typing')
+    typetrig = 0;
+    currentWord = 1;
+    wordCnt = 0;
+    rightCnt = 0;
+    wrongCnt = 0;
+    timer = 0;
+    mistakes = 0;
+    count = 0;
+
+    const typeBox = document.querySelector('.typeBox');
+    typeBox.innerHTML = ''; // Clear previous content
+
+    setMode(mode)
+    startTimer();
+    resetCnt()
+    document.querySelector('.progress').style.setProperty('--progress-width', `0%`);
+}
+const setMode = (mode) => {
+    console.log('lock typing')
+    typetrig = 1
+    document.querySelectorAll('.wordsCount>button').forEach(div => {
+        div.classList.remove('active')
+    })
+    switch (mode) {
+        case 1:
+            document.querySelector('.wordsCount>button:nth-child(2)').classList.add('active')
+            fetchRandomWords(10);
+            break;
+        case 2:
+            document.querySelector('.wordsCount>button:nth-child(3)').classList.add('active')
+            fetchRandomWords(15);
+            break;
+        case 3:
+            document.querySelector('.wordsCount>button:nth-child(4)').classList.add('active')
+            fetchRandomWords(20);
+            break;
+        case 4:
+            document.querySelector('.wordsCount>button:nth-child(5)').classList.add('active')
+            fetchMovieLine();
+            break;
+        case 5:
+            document.querySelector('.wordsCount>button:nth-child(5)').classList.add('active')
+            fetchMovieLine();
+            break;
+        default:
+            break;
+    }
+}
 
 const checkLetter = (letter) => {
-    const currentLetter = document.querySelector(`.typeBox>span:nth-child(${currentWord})`)
+    let currentLetter = document.querySelector(`.current`)
     const lastLetter = document.querySelector(`.typeBox>span:nth-child(${currentWord - 1})`)
+    if(!currentLetter){
+        console.log('wait')
+        return
+    }
 
     const typeBoxSpan = document.querySelectorAll(".typeBox>span");
     typeBoxSpan.forEach(spans => {
@@ -262,6 +318,7 @@ const checkLetter = (letter) => {
             currentLetter.classList.remove('right')
             currentLetter.classList.remove('wrong')
             currentWord = currentWord == 1 ? 1 : currentWord - 1;
+            zenwordCnt--
         }
     } else if (letter == "rightShift" || letter == "leftShift" || letter == "capslock" || letter == "tab") {
         return
@@ -277,6 +334,7 @@ const checkLetter = (letter) => {
             currentLetter.classList.add('wrong')
             wrongCnt++
             mistakes++
+            zenwordCnt++
 
             const keyboard = document.querySelector('.keyboard')
             if (keyboard) {
@@ -288,15 +346,29 @@ const checkLetter = (letter) => {
             }
         }
 
-        if (currentWord == wordCnt) {
+        if (currentWord == wordCnt && mode!= 5) {
             //Win Condition
+            console.log("mode = "+ mode)
             activateEndscreen()
+        }
+        else if (currentWord == wordCnt && mode== 5) {
+            currentWord = 0
+            console.log('zen mode lock typing')
+            typetrig = 1
+            setTimeout(() => {
+                fetchMovieLine()
+            }, 1000);
+            sentences++
+            document.querySelector('.sentencesCnt').innerHTML=sentences
         } else {
             currentWord++;
         }
     }
 
-    document.querySelector(`.typeBox>span:nth-child(${currentWord})`).classList.add('current');
+    if(document.querySelector(`.typeBox>span:nth-child(${currentWord})`)){
+        document.querySelector(`.typeBox>span:nth-child(${currentWord})`).classList.add('current');
+    }
+    
     document.querySelector('.rightCnt').innerHTML = rightCnt
     document.querySelector('.wrongCnt').innerHTML = wrongCnt
 
@@ -362,14 +434,53 @@ for (const [row, keyArray] of Object.entries(keys)) {
 function handleClick(keyname) {
     if (typetrig == 0) {
         const keyElement = document.querySelector(`.key.${keyname}`);
-        if(keyname == "zen"){
-            alert("Loading Zen Mode")
+        if(keyname == "zan"){
+            activateZenMode()
         }else{
             lightUp(keyElement)
             checkLetter(keyname)
         }
     }
 }
+
+
+const activateZenMode = () =>{
+    const title = document.querySelector('.shikaTypo')
+    const waves = document.querySelector('.waves')
+    if (waves) {
+        if(waves.classList.contains('zen')){
+            waves.classList.remove('zen');
+            title.innerHTML="Shika-typo"
+            document.querySelector('.stopbutton').classList.add('hide')
+            document.querySelector('.resetbutton').classList.remove('hide')
+            document.querySelector('.endbutton').classList.add('hide')
+            document.querySelector('.wordsCount').style.display='flex'
+            document.querySelector('.animationBox').style.display='flex'
+            document.querySelector('.progressBar').style.display='flex'
+            document.querySelector('.sentencesBox').style.display='none'
+            document.querySelector('.zenmode').style.display='none'
+
+            mode=4
+            resetData()
+        }else{
+            waves.classList.add('zen');
+            title.innerHTML="Shika-typo <span>Zan</span>"
+            document.querySelector('.stopbutton').classList.remove('hide')
+            document.querySelector('.resetbutton').classList.add('hide')
+            document.querySelector('.endbutton').classList.remove('hide')
+            document.querySelector('.wordsCount').style.display='none'
+            document.querySelector('.animationBox').style.display='none'
+            document.querySelector('.progressBar').style.display='none'
+            document.querySelector('.sentencesBox').style.display='flex'
+            document.querySelector('.zenmode').style.display='block'
+
+            mode=5
+            resetData()
+        }
+    }
+}
+
+activateZenMode()
 
 async function fetchRandomWords(amount) {
     try {
@@ -383,6 +494,8 @@ async function fetchRandomWords(amount) {
         document.querySelector('.spacebar').innerHTML = "-"
         displayLetters(sentence, animationSpeed);
         countLetters(sentence);
+        console.log('unlock typing')
+        typetrig = 0
     } catch (error) {
         console.error('Error fetching random words:', error);
     }
@@ -394,10 +507,11 @@ async function fetchMovieLine() {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const movieLine = await response.json();
-        console.log(movieLine)
         document.querySelector('.spacebar').innerHTML = movieLine.author
         displayLetters(movieLine.content, animationSpeed);
         countLetters(movieLine.content);
+        console.log('unlock typing')
+        typetrig = 0
     } catch (error) {
         console.error('Error fetching movie line:', error);
     }
@@ -437,51 +551,6 @@ document.addEventListener('keyup', function (event) {
         caps.classList.remove('active');
     }
 });
-
-const setMode = (mode) => {
-    document.querySelectorAll('.wordsCount>button').forEach(div => {
-        div.classList.remove('active')
-    })
-    switch (mode) {
-        case 1:
-            document.querySelector('.wordsCount>button:nth-child(2)').classList.add('active')
-            fetchRandomWords(10);
-            break;
-        case 2:
-            document.querySelector('.wordsCount>button:nth-child(3)').classList.add('active')
-            fetchRandomWords(15);
-            break;
-        case 3:
-            document.querySelector('.wordsCount>button:nth-child(4)').classList.add('active')
-            fetchRandomWords(20);
-            break;
-        case 4:
-            document.querySelector('.wordsCount>button:nth-child(5)').classList.add('active')
-            fetchMovieLine();
-            break;
-        default:
-            break;
-    }
-}
-
-const resetData = () => {
-    typetrig = 0;
-    currentWord = 1;
-    wordCnt = 0;
-    rightCnt = 0;
-    wrongCnt = 0;
-    timer = 0;
-    mistakes = 0;
-    count = 0;
-
-    const typeBox = document.querySelector('.typeBox');
-    typeBox.innerHTML = ''; // Clear previous content
-
-    setMode(mode)
-    startTimer();
-    resetCnt()
-    document.querySelector('.progress').style.setProperty('--progress-width', `0%`);
-}
 
 resetData();
 
@@ -541,12 +610,12 @@ function startTimer() {
 }
 
 const activateEndscreen = () => {
+    console.log('lock typing')
     typetrig = 1
 
     let wpm = 0
     wpm = Math.round((count / 5) / (timer / 60))
-    console.log(wpm+ " " + resultgenerate(categorizeWPM(wpm)) + " " +categorizeWPM(wpm) + " " + resultgenerate("fast"))
-
+    
     const endscreen = document.querySelector('.successScreen')
     if (endscreen) {
         endscreen.remove()

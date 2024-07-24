@@ -12,6 +12,19 @@
 </head>
 
 <body>
+    <div class="hero_area">
+        <svg class="waves zen" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <defs>
+                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+            </defs>
+            <g class="parallax">
+                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.03)" />
+                <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.03)" />
+                <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.03)" />
+                <use xlink:href="#gentle-wave" x="48" y="7" fill="rgba(255,255,255,0.03)" />
+            </g>
+        </svg>
+    </div>
     <section class="center">
         <div class="dataArea center">
             <h1 class="shikaTypo">Shika-typo</h1>
@@ -34,11 +47,23 @@
 
         <div class="keyboard center key60">
             <div class="commandRow center">
-                <button class="resetbutton center tag" onclick="resetData()">
+                <button class="resetbutton center tag" data-tag="Reset" onclick="resetData()">
                     <span class="material-symbols-outlined">
                         restart_alt
                     </span>
                     Esc to reset
+                </button>
+                <button class="endbutton center tag" data-tag="End" onclick="resetData()">
+                    <span class="material-symbols-outlined">
+                        stop
+                    </span>
+                    Esc to End
+                </button>
+                <button class="stopbutton center tag" data-tag="Stop" onclick="resetData()">
+                    <span class="material-symbols-outlined">
+                        pause
+                    </span>
+                    Enter to Pause
                 </button>
                 <div class="wordsCount center tag" title="word count" data-tag="Words Count/Mode">
                     <span class="material-symbols-outlined">
@@ -56,11 +81,11 @@
                     <button onclick="animationmode(3)">off</button>
                 </div>
                 <div class="counter center tag" data-tag="Right/Wrong Count">
-                    <div class="rightBox center">
+                    <div class="rightBox cntBox center">
                         <span class="material-symbols-outlined">check</span>
                         <span class="rightCnt">0</span>
                     </div>
-                    <div class="wrongBox center">
+                    <div class="wrongBox cntBox center">
                         <span class="material-symbols-outlined">close</span>
                         <span class="wrongCnt">0</span>
                     </div>
@@ -68,6 +93,15 @@
                 <div class="progressBar center tag" data-tag="Progress Bar">
                     <span class="material-symbols-outlined">progress_activity</span>
                     <div class="progress"></div>
+                </div>
+                <div class="sentencesBox tag" data-tag="Sentence Count">
+                    <div class="wrongBox cntBox center">
+                        <span class="material-symbols-outlined">line_start</span>
+                        <span class="sentencesCnt">0</span>
+                    </div>
+                </div>
+                <div class="zenmode">
+                    Zen Mode [Sit back, relax and type]
                 </div>
                 <div class="timer center tag" data-tag="Timer">
                     <span class="material-symbols-outlined">timer</span>

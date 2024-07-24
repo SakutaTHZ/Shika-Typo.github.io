@@ -39,7 +39,6 @@ body {
 }
 
 section {
-    background: var(--bgcolor);
     width: 100dvw;
     height: 100dvh;
 
@@ -52,6 +51,10 @@ section {
 .shikaTypo {
     font-size: calc(var(--normal-fontSize) *2);
     font-family: var(--font2);
+    span{
+        color: var(--bgcolor);
+        text-shadow: 2px 2px var(--lightShadow);
+    }
 }
 
 .title {
@@ -238,7 +241,7 @@ section {
 
         .key.spacebar {
             width: 486px;
-            font-family: var(--font1);
+            font-family: var(--font2);
             letter-spacing: .05em;
         }
     }
@@ -404,7 +407,7 @@ section {
         opacity: 1;
     }
 
-    .resetbutton {
+    .resetbutton,.stopbutton,.endbutton {
         background: none;
         border: none;
         color: var(--lightShadow);
@@ -412,8 +415,13 @@ section {
         gap: 10px;
         text-wrap: nowrap;
     }
+    .resetbutton.hide,.stopbutton.hide,.endbutton.hide {
+        display: none;
+        opacity: 0;
+        transform: translateY(-30px);
+    }
 
-    .resetbutton:hover {
+    .resetbutton:hover,.stopbutton:hover,.endbutton:hover {
         background: var(--bgcolor);
         border-radius: 20px;
         cursor: pointer;
@@ -423,7 +431,8 @@ section {
     .animationBox,
     .progressBar,
     .timer,
-    .counter {
+    .counter,
+    .sentencesBox,.zenmode{
         padding: 3px 15px;
         margin-left: 5px;
         gap: 10px;
@@ -475,10 +484,28 @@ section {
         }
     }
 
+    .cntBox{
+        padding-left: 10px;
+        gap: 5px;
+    }
+    .zenmode{
+        padding-left: 20px;
+        font-family: var(--font2);
+        width: 100%;
+        font-size: .8em;
+        text-align: right;
+        color: var(--bgcolor);
+        font-weight: 500;
+    }
+
     .rightCnt,
-    .wrongCnt {
+    .wrongCnt,
+    .sentencesCnt {
         color: var(--lightShadow);
     }
+}
+.commandRow.hide{
+    display: none;
 }
 
 .successScreen {
@@ -610,25 +637,95 @@ section {
 }
 .dataArea{
     position: absolute;
-    top: 10vh;
+    top: 0;
+    height: 42vh;
+    padding-top: 8vh;
     flex-direction: column;
-    gap: 2em;
+    justify-content: space-between;
 }
 
 @media screen and (max-width: 767px) {
     body {
         font-size: 14px !important;
-        color: #ff2f00;
     }
 
     .keyboard{
         position: absolute;
         bottom: -20%;
-        scale: .3;
+        scale: .32;
     }
     .dataArea{
         top: 5vh;
         flex-direction: column;
         gap: 3em;
+    }
+}
+
+.hero_area {
+    position: fixed;
+    bottom: 0;
+    width: 100dvw;
+    height: 100vh;
+    background-color: var(--bgcolor);
+    z-index: -100;
+}
+
+.waves {
+    position: absolute;
+    width: 100%;
+    height: 25vh;
+    min-height: 100px;
+    max-height: 200px;
+    bottom: -20vh;
+    left: 0;
+    opacity: 0;
+    transition: .5s ease-in-out, opacity 2s ease-in-out;
+}
+.waves.zen{
+    bottom: 0;
+    opacity: 1;
+}
+
+.parallax>use {
+    animation: move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
+}
+
+.parallax>use:nth-child(1) {
+    animation-delay: -2s;
+    animation-duration: 7s;
+}
+
+.parallax>use:nth-child(2) {
+    animation-delay: -3s;
+    animation-duration: 10s;
+}
+
+.parallax>use:nth-child(3) {
+    animation-delay: -4s;
+    animation-duration: 13s;
+}
+
+.parallax>use:nth-child(4) {
+    animation-delay: -5s;
+    animation-duration: 20s;
+}
+
+@keyframes move-forever {
+    0% {
+        transform: translate3d(-90px, 0, 0);
+    }
+
+    100% {
+        transform: translate3d(85px, 0, 0);
+    }
+}
+
+
+/*Shrinking for mobile*/
+
+@media (max-width: 768px) {
+    .waves {
+        height: 30vh;
+        min-height: 40px;
     }
 }
