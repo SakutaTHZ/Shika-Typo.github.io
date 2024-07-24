@@ -68,7 +68,7 @@ var keys = {
         { mainLabel: "Alt", secLabel: "", bottomLabel: "←", className: "key rightAlt ArrowLeft" },
         { mainLabel: "Prt", secLabel: "", bottomLabel: "↓", className: "key prt ArrowDown" },
         { mainLabel: "Ctrl", secLabel: "", bottomLabel: "→", className: "key rightCtrl ArrowRight" },
-        { mainLabel: "Zen", secLabel: "", bottomLabel: "", className: "key zen" }
+        { mainLabel: "ZAN", secLabel: "", bottomLabel: "⌨️", className: "key zan" }
     ]
 };
 
@@ -362,9 +362,12 @@ for (const [row, keyArray] of Object.entries(keys)) {
 function handleClick(keyname) {
     if (typetrig == 0) {
         const keyElement = document.querySelector(`.key.${keyname}`);
-
-        lightUp(keyElement)
-        checkLetter(keyname)
+        if(keyname == "zen"){
+            alert("Loading Zen Mode")
+        }else{
+            lightUp(keyElement)
+            checkLetter(keyname)
+        }
     }
 }
 

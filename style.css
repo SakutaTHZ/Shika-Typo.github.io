@@ -48,7 +48,8 @@ section {
     padding-bottom: 50px;
     gap: 40px;
 }
-.shikaTypo{
+
+.shikaTypo {
     font-size: calc(var(--normal-fontSize) *2);
     font-family: var(--font2);
 }
@@ -85,7 +86,7 @@ section {
 
             width: 72px;
             height: 72px;
-            transition: .5s ease-in-out,0s z-index ease-in-out;
+            transition: .5s ease-in-out, 0s z-index ease-in-out;
 
             p,
             span {
@@ -97,7 +98,7 @@ section {
             }
 
             span {
-                font-size: calc(var(--normal-fontSize)/1.25) ;
+                font-size: calc(var(--normal-fontSize)/1.25);
                 bottom: 8px;
                 right: 8px;
             }
@@ -112,14 +113,17 @@ section {
                 }
             }
         }
-        .key.highlight{
+
+        .key.highlight {
             border: 1px solid var(--hightlightColor);
             background: var(--priColor);
+
             p,
             span {
                 color: var(--bgcolor);
             }
         }
+
         .key:hover {
             /* box-shadow: 0 0 10px var(--hightlightColor),0 0 20px var(--hightlightColor); */
             scale: 1.25;
@@ -127,12 +131,13 @@ section {
             transform: translateZ(200px);
             animation: 3s rgb linear alternate infinite;
             border: 1px solid var(--hightlightColor);
+
             p,
             span {
                 color: var(--hightlightColor);
             }
         }
-    
+
         /* To check the right side */
         .key:hover+* {
             scale: 1.1;
@@ -142,7 +147,7 @@ section {
             /* box-shadow: 0 0 10px var(--hightlightColor); */
             animation: 3s rgb linear alternate infinite;
         }
-    
+
         .key:hover+*+* {
             scale: 1.05;
             z-index: 8;
@@ -151,7 +156,7 @@ section {
             /* box-shadow: 0 0 10px var(--hightlightColor); */
             animation: 3s rgb linear alternate infinite;
         }
-    
+
         .key:hover+*+*+* {
             z-index: 7;
             border: 1px solid var(--hightlightColor);
@@ -159,7 +164,7 @@ section {
             /* box-shadow: 0 0 10px var(--hightlightColor); */
             animation: 3s rgb linear alternate infinite;
         }
-    
+
         /* To check the right side */
         .key:has(+ *:hover) {
             scale: 1.1;
@@ -169,7 +174,7 @@ section {
             /* box-shadow: 0 0 10px var(--hightlightColor); */
             animation: 3s rgb linear alternate infinite;
         }
-    
+
         .key:has(+* + *:hover) {
             scale: 1.05;
             z-index: 8;
@@ -178,7 +183,7 @@ section {
             /* box-shadow: 0 0 10px var(--hightlightColor); */
             animation: 3s rgb linear alternate infinite;
         }
-    
+
         .key:has(+ * + * + *:hover) {
             z-index: 7;
             border: 1px solid var(--hightlightColor);
@@ -191,9 +196,13 @@ section {
         .key.leftWin,
         .key.leftAlt,
         .key.rightAlt,
-        .key.zen,
+        .key.zan,
         .key.rightCtrl {
             width: 90px;
+        }
+        .key.zan{
+            border: 2px solid var(--hightlightColor);
+            animation: 2s zanMode linear infinite alternate;
         }
 
         .key.tab,
@@ -204,8 +213,10 @@ section {
         .key.capslock {
             width: 128px;
         }
+
         .key.capslock.active {
             box-shadow: 0 0 10px var(--priColor);
+
             p,
             span {
                 color: var(--priColor) !important;
@@ -232,88 +243,135 @@ section {
         }
     }
 }
-.keyboard.shake{
-    animation: .3s shake linear;
-}
-@keyframes shake {
+
+@keyframes zanMode {
     0%{
-        transform: translateX(0);
-    }10%{
-        transform: translateX(-3px);
-    }20%{
-        transform: translateX(0);
-    }30%{
-        transform: translateX(3px);
-    }40%{
-        transform: translateX(0);
-    }50%{
-        transform: translateX(-3px);
-    }60%{
-        transform: translateX(0);
-    }70%{
-        transform: translateX(3px);
-    }80%{
-        transform: translateX(0);
-    }90%{
-        transform: translateX(-3px);
-    }100%{
-        transform: translateX(0);
-    }
-}
-@keyframes rgb {
-    from{
+        background: hsl(from var(--hightlightColor) h s l / 0);
+        box-shadow: inset 0 0 0 var(--hightlightColor);
         filter: hue-rotate(0deg);
-    }to{
+    }
+    100%{
+        background: hsl(from var(--hightlightColor) h s l / .1);
+        box-shadow: inset 0 0 2px var(--hightlightColor);
         filter: hue-rotate(360deg);
     }
 }
 
-.typeBox{
+.keyboard.shake {
+    animation: .3s shake linear;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    10% {
+        transform: translateX(-3px);
+    }
+
+    20% {
+        transform: translateX(0);
+    }
+
+    30% {
+        transform: translateX(3px);
+    }
+
+    40% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(-3px);
+    }
+
+    60% {
+        transform: translateX(0);
+    }
+
+    70% {
+        transform: translateX(3px);
+    }
+
+    80% {
+        transform: translateX(0);
+    }
+
+    90% {
+        transform: translateX(-3px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes rgb {
+    from {
+        filter: hue-rotate(0deg);
+    }
+
+    to {
+        filter: hue-rotate(360deg);
+    }
+}
+
+.typeBox {
     text-align: center;
     width: 75dvw;
     padding-bottom: 10px;
-    span{
+
+    span {
         font-size: calc(var(--title-fontsize)/1.5);
         font-family: var(--font1);
         color: var(--lightShadow);
         padding: 3px .5px;
     }
-    span.right{
+
+    span.right {
         color: var(--hightlightColor);
     }
-    span.wrong{
+
+    span.wrong {
         color: var(--secColor);
     }
-    span.current{
+
+    span.current {
         animation: .5s currentblink linear alternate infinite;
     }
-    .space.wrong{
+
+    .space.wrong {
         display: inline-flex;
         width: 10px;
-        border-bottom:1px solid var(--secColor);
+        border-bottom: 1px solid var(--secColor);
     }
 }
 
 @keyframes currentblink {
-    from{
+    from {
         border-bottom: 3px solid transparent;
-    }to{
+    }
+
+    to {
         border-bottom: 3px solid var(--hightlightColor);
     }
 }
 
-.commandRow{
-    background:rgba(255, 255, 255, .1);
+.commandRow {
+    background: rgba(255, 255, 255, .1);
     width: 100%;
     padding: 5px 10px;
     margin-bottom: 10px;
     border-radius: 20px;
     flex-direction: row;
     justify-content: flex-start;
-    .tag{
-        position:relative;
+
+    .tag {
+        position: relative;
     }
-    .tag::before{
+
+    .tag::before {
         content: attr(data-tag);
         position: absolute;
         width: 100%;
@@ -333,18 +391,20 @@ section {
         opacity: 0;
         backdrop-filter: blur(10px);
         scale: 0;
-        transition: opacity 0.8s linear,scale .5s linear,bottom .4s linear;
+        transition: opacity 0.8s linear, scale .5s linear, bottom .4s linear;
     }
-    .tag:hover{
+
+    .tag:hover {
         cursor: help;
     }
-    .tag:hover::before{
+
+    .tag:hover::before {
         bottom: 140%;
         scale: 1;
         opacity: 1;
     }
 
-    .resetbutton{
+    .resetbutton {
         background: none;
         border: none;
         color: var(--lightShadow);
@@ -352,35 +412,48 @@ section {
         gap: 10px;
         text-wrap: nowrap;
     }
-    .resetbutton:hover{
+
+    .resetbutton:hover {
         background: var(--bgcolor);
         border-radius: 20px;
         cursor: pointer;
     }
-    .wordsCount,.animationBox,.progressBar,.timer,.counter{
+
+    .wordsCount,
+    .animationBox,
+    .progressBar,
+    .timer,
+    .counter {
         padding: 3px 15px;
         margin-left: 5px;
         gap: 10px;
         border-left: 3px solid var(--bgcolor);
-        span{
+
+        span {
             margin-right: 5px;
         }
-        button{
+
+        button {
             background: none;
             border: none;
             color: var(--lightShadow);
-        }button:hover{
+        }
+
+        button:hover {
             color: var(--priColor);
             cursor: pointer;
         }
-        button.active{
+
+        button.active {
             color: var(--hightlightColor) !important;
         }
     }
-    .progressBar{
+
+    .progressBar {
         width: 100%;
         height: 100%;
-        .progress{
+
+        .progress {
             position: relative;
             background: var(--bgcolor);
             height: 100%;
@@ -389,7 +462,8 @@ section {
             overflow: hidden;
             border: 5px solid var(--bgcolor);
         }
-        .progress::before{
+
+        .progress::before {
             content: '';
             position: absolute;
             inset: 0;
@@ -400,12 +474,14 @@ section {
             transition: .2s ease-in-out;
         }
     }
-    .rightCnt,.wrongCnt{
+
+    .rightCnt,
+    .wrongCnt {
         color: var(--lightShadow);
     }
 }
 
-.successScreen{
+.successScreen {
     position: fixed;
     width: 100dvw;
     height: 100dvh;
@@ -413,10 +489,12 @@ section {
     background: rgba(0, 0, 0, .5);
     z-index: 100;
     backdrop-filter: blur(20px);
-    .congratsContainer{
+
+    .congratsContainer {
         height: 100%;
         gap: 10px;
-        span{
+
+        span {
             position: absolute;
             bottom: 50%;
             font-size: 8vw;
@@ -424,41 +502,49 @@ section {
             animation: floatup linear;
             animation-fill-mode: forwards;
         }
-        span:nth-child(1){
+
+        span:nth-child(1) {
             left: 11%;
             animation-duration: 0.3s;
         }
-        span:nth-child(2){
+
+        span:nth-child(2) {
             left: 21%;
             animation-duration: 0.5s;
         }
-        span:nth-child(3){
+
+        span:nth-child(3) {
             left: 31%;
             animation-duration: 0.7s;
         }
-        span:nth-child(4){
+
+        span:nth-child(4) {
             left: 41%;
             animation-duration: 0.9s;
         }
-        span:nth-child(5){
+
+        span:nth-child(5) {
             right: 41%;
             animation-duration: 1.1s;
         }
-        span:nth-child(6){
+
+        span:nth-child(6) {
             right: 31%;
             animation-duration: 1.3s;
         }
-        span:nth-child(7){
+
+        span:nth-child(7) {
             right: 21%;
             animation-duration: 1.5s;
         }
-        span:nth-child(8){
+
+        span:nth-child(8) {
             right: 11%;
             animation-duration: 1.7s;
         }
     }
-    
-    button{
+
+    button {
         position: absolute;
         background: var(--priColor);
         color: var(--bgcolor);
@@ -469,32 +555,38 @@ section {
         bottom: 25%;
         animation: 1s appear linear;
     }
-    button:hover{
+
+    button:hover {
         background: var(--hightlightColor);
         cursor: pointer;
     }
 }
+
 @keyframes floatup {
-    from{
+    from {
         bottom: 0;
         transform: rotate(10deg) scale(.1);
     }
-    to{
+
+    to {
         bottom: 50%;
         transform: rotate(0deg) scale(1);
     }
 }
+
 @keyframes appear {
-    from{
+    from {
         opacity: 0;
         scale: 0;
-    }to{
+    }
+
+    to {
         opacity: 1;
         scale: 1;
     }
 }
 
-.resultBox{
+.resultBox {
     gap: 5vw;
     position: absolute;
     bottom: 35%;
@@ -503,14 +595,40 @@ section {
     border-radius: 10px;
     background: var(--darkShadow);
     backdrop-filter: blur(10px);
-    div{
+
+    div {
         color: var(--lightShadow);
         font-size: larger;
     }
 }
-.resultText{
+
+.resultText {
     position: absolute;
     bottom: 45%;
     font-family: var(--font2);
     font-size: var(--normal-fontSize);
+}
+.dataArea{
+    position: absolute;
+    top: 10vh;
+    flex-direction: column;
+    gap: 2em;
+}
+
+@media screen and (max-width: 767px) {
+    body {
+        font-size: 14px !important;
+        color: #ff2f00;
+    }
+
+    .keyboard{
+        position: absolute;
+        bottom: -20%;
+        scale: .3;
+    }
+    .dataArea{
+        top: 5vh;
+        flex-direction: column;
+        gap: 3em;
+    }
 }
