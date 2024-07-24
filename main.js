@@ -277,6 +277,15 @@ const checkLetter = (letter) => {
             currentLetter.classList.add('wrong')
             wrongCnt++
             mistakes++
+
+            const keyboard = document.querySelector('.keyboard')
+            if (keyboard) {
+                keyboard.classList.add('shake');
+
+                setTimeout(() => {
+                    keyboard.classList.remove('shake');
+                }, 500);
+            }
         }
 
         if (currentWord == wordCnt) {
