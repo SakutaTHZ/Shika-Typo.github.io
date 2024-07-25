@@ -205,7 +205,7 @@ section {
         }
         .key.zan{
             border: 2px solid var(--hightlightColor);
-            animation: 2s zanMode linear infinite alternate;
+            animation: 5s zanMode linear infinite alternate;
         }
 
         .key.tab,
@@ -248,12 +248,7 @@ section {
 }
 
 @keyframes zanMode {
-    0%{
-        background: hsl(from var(--hightlightColor) h s l / 0);
-        box-shadow: inset 0 0 0 var(--hightlightColor);
-        filter: hue-rotate(0deg);
-    }
-    100%{
+    50%{
         background: hsl(from var(--hightlightColor) h s l / .1);
         box-shadow: inset 0 0 2px var(--hightlightColor);
         filter: hue-rotate(360deg);

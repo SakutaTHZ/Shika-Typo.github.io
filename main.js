@@ -233,6 +233,30 @@ let count = 0;
 let sentences = 0;
 let zenwordCnt = 0;
 
+for (const [row, keyArray] of Object.entries(keys)) {
+    var keyrow = document.createElement('div')
+    var parent = document.querySelector('.keyboard')
+    keyrow.classList = 'keyrow'
+    keyrow.classList.add(row)
+    parent.append(keyrow)
+
+    for (const key of keyArray) {
+        var keyname = document.createElement('div')
+        keyname.className = key.className
+        keyname.innerHTML = `
+                    <p>
+                        <span>${key.mainLabel}</span>
+                        <span>${key.secLabel}</span>
+                    </p>
+                    <span>${key.bottomLabel}</span>
+        `
+        keyname.onclick = function () {
+            handleClick(key.className.split(' ')[1]);
+        };
+        keyrow.append(keyname)
+    }
+}
+
 const lightUp = (keyElement) => {
     if (keyElement) {
         keyElement.classList.add('highlight');
@@ -243,7 +267,6 @@ const lightUp = (keyElement) => {
     }
 }
 const resetData = () => {
-    console.log('unlock typing')
     typetrig = 0;
     currentWord = 1;
     wordCnt = 0;
@@ -262,7 +285,6 @@ const resetData = () => {
     document.querySelector('.progress').style.setProperty('--progress-width', `0%`);
 }
 const setMode = (mode) => {
-    console.log('lock typing')
     typetrig = 1
     document.querySelectorAll('.wordsCount>button').forEach(div => {
         div.classList.remove('active')
@@ -297,7 +319,8 @@ const checkLetter = (letter) => {
     let currentLetter = document.querySelector(`.current`)
     const lastLetter = document.querySelector(`.typeBox>span:nth-child(${currentWord - 1})`)
     if(!currentLetter){
-        console.log('wait')
+        alert("You typed too hard. Dammit!")
+        restart()
         return
     }
 
@@ -348,12 +371,10 @@ const checkLetter = (letter) => {
 
         if (currentWord == wordCnt && mode!= 5) {
             //Win Condition
-            console.log("mode = "+ mode)
             activateEndscreen()
         }
         else if (currentWord == wordCnt && mode== 5) {
             currentWord = 0
-            console.log('zen mode lock typing')
             typetrig = 1
             setTimeout(() => {
                 fetchMovieLine()
@@ -388,57 +409,57 @@ const calculatePercent = () => {
     progressElement.style.setProperty('--progress-width', `${percent}%`);
 }
 
-document.addEventListener('keydown', function (event) {
-    const code = event.code;
-    if (typetrig == 0) {
-        const keyElement = document.querySelector(`.key.${keybinds[code].name}`);
+const currentChecker = () =>{
+    let currentLetter = document.querySelector(`.current`)
+    if(!currentLetter){
+        console.log("no current")
+        return false
+    }
+    return true
+}
 
-        lightUp(keyElement)
-        if (keybinds[code].name == "Esc") {
-            resetData()
+document.addEventListener('keydown', function (event) {
+    if(currentChecker()){
+        const code = event.code;
+        if (typetrig == 0) {
+            const keyElement = document.querySelector(`.key.${keybinds[code].name}`);
+    
+            lightUp(keyElement)
+            if (keybinds[code].name == "Esc") {
+                if(mode == 5){
+                    console.log("zenmode reset")
+                    activateEndscreen()
+                }else{
+                    resetData()
+                }
+            } else {
+                checkLetter(keybinds[code].text)
+            }
         } else {
-            checkLetter(keybinds[code].text)
-        }
-    } else {
-        if (code == "KeyF") {
-            restart()
+            if (code == "KeyF") {
+                restart()
+            }
         }
     }
 });
 
-
-for (const [row, keyArray] of Object.entries(keys)) {
-    var keyrow = document.createElement('div')
-    var parent = document.querySelector('.keyboard')
-    keyrow.classList = 'keyrow'
-    keyrow.classList.add(row)
-    parent.append(keyrow)
-
-    for (const key of keyArray) {
-        var keyname = document.createElement('div')
-        keyname.className = key.className
-        keyname.innerHTML = `
-                    <p>
-                        <span>${key.mainLabel}</span>
-                        <span>${key.secLabel}</span>
-                    </p>
-                    <span>${key.bottomLabel}</span>
-        `
-        keyname.onclick = function () {
-            handleClick(key.className.split(' ')[1]);
-        };
-        keyrow.append(keyname)
-    }
-}
-
 function handleClick(keyname) {
-    if (typetrig == 0) {
-        const keyElement = document.querySelector(`.key.${keyname}`);
-        if(keyname == "zan"){
-            activateZenMode()
-        }else{
-            lightUp(keyElement)
-            checkLetter(keyname)
+    if(currentChecker()){
+        if (typetrig == 0) {
+            const keyElement = document.querySelector(`.key.${keyname}`);
+            if(keyname == "zan"){
+                activateZenMode()
+            }else if(keyname == "Esc"){
+                if(mode == 5){
+                    console.log("zenmode reset")
+                    activateEndscreen()
+                }else{
+                    resetData()
+                }
+            }else{
+                lightUp(keyElement)
+                checkLetter(keyname)
+            }
         }
     }
 }
@@ -494,7 +515,6 @@ async function fetchRandomWords(amount) {
         document.querySelector('.spacebar').innerHTML = "-"
         displayLetters(sentence, animationSpeed);
         countLetters(sentence);
-        console.log('unlock typing')
         typetrig = 0
     } catch (error) {
         console.error('Error fetching random words:', error);
@@ -510,7 +530,6 @@ async function fetchMovieLine() {
         document.querySelector('.spacebar').innerHTML = movieLine.author
         displayLetters(movieLine.content, animationSpeed);
         countLetters(movieLine.content);
-        console.log('unlock typing')
         typetrig = 0
     } catch (error) {
         console.error('Error fetching movie line:', error);
@@ -518,6 +537,7 @@ async function fetchMovieLine() {
 }
 
 async function displayLetters(sentence, animationSpeed) {
+    typetrig = 1
     const typeBox = document.querySelector('.typeBox');
     typeBox.innerHTML = ''; // Clear previous content
     for (const letter of sentence) {
@@ -538,6 +558,7 @@ async function displayLetters(sentence, animationSpeed) {
     }
 
     document.querySelector('.typeBox>span:nth-child(1)').classList.add('current')
+    typetrig=0
 }
 function countLetters(sentence) {
     const letterCount = sentence.length;
@@ -610,11 +631,20 @@ function startTimer() {
 }
 
 const activateEndscreen = () => {
-    console.log('lock typing')
     typetrig = 1
+    let sentenceBox = ""
 
     let wpm = 0
-    wpm = Math.round((count / 5) / (timer / 60))
+    if(mode == 5){
+        wpm = Math.round((zenwordCnt / 5) / (timer / 60))
+        sentenceBox=`
+            <div class="box">
+                Sentences - <span>${sentences}</span>
+            </div>
+        `
+    }else{
+        wpm = Math.round((count / 5) / (timer / 60))
+    }
     
     const endscreen = document.querySelector('.successScreen')
     if (endscreen) {
@@ -639,6 +669,7 @@ const activateEndscreen = () => {
                 <div class="box">
                     Mistakes - <span>${mistakes}</span>
                 </div>
+                ${sentenceBox}
                 <div class="box">
                     Time - <span>${timer}s</span>
                 </div>
