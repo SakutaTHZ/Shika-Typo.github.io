@@ -419,44 +419,44 @@ const currentChecker = () =>{
 }
 
 document.addEventListener('keydown', function (event) {
-    if(currentChecker()){
-        const code = event.code;
-        if (typetrig == 0) {
-            const keyElement = document.querySelector(`.key.${keybinds[code].name}`);
-    
-            lightUp(keyElement)
-            if (keybinds[code].name == "Esc") {
-                if(mode == 5){
-                    console.log("zenmode reset")
-                    activateEndscreen()
-                }else{
-                    resetData()
-                }
-            } else {
+    const code = event.code;
+    if (keybinds[code].name == "Esc") {
+        if(mode == 5){
+            console.log("zenmode reset")
+            activateEndscreen()
+        }else{
+            resetData()
+        }
+    } else {
+        if(currentChecker()){
+            if (typetrig == 0) {
+                const keyElement = document.querySelector(`.key.${keybinds[code].name}`);
+        
+                lightUp(keyElement)
                 checkLetter(keybinds[code].text)
-            }
-        } else {
-            if (code == "KeyF") {
-                restart()
+            } else {
+                if (code == "KeyF") {
+                    restart()
+                }
             }
         }
     }
 });
 
 function handleClick(keyname) {
-    if(currentChecker()){
-        if (typetrig == 0) {
-            const keyElement = document.querySelector(`.key.${keyname}`);
-            if(keyname == "zan"){
-                activateZenMode()
-            }else if(keyname == "Esc"){
-                if(mode == 5){
-                    console.log("zenmode reset")
-                    activateEndscreen()
-                }else{
-                    resetData()
-                }
-            }else{
+    if(keyname == "zan"){
+        activateZenMode()
+    }else if(keyname == "Esc"){
+        if(mode == 5){
+            console.log("zenmode reset")
+            activateEndscreen()
+        }else{
+            resetData()
+        }
+    }else{
+        if(currentChecker()){
+            if (typetrig == 0) {
+                const keyElement = document.querySelector(`.key.${keyname}`);
                 lightUp(keyElement)
                 checkLetter(keyname)
             }
