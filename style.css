@@ -633,10 +633,10 @@ section {
 .dataArea{
     position: absolute;
     top: 0;
-    height: 42vh;
     padding-top: 8vh;
     flex-direction: column;
     justify-content: space-between;
+    gap: 5vh;
 }
 
 @media screen and (max-width: 767px) {
@@ -648,6 +648,28 @@ section {
         position: absolute;
         bottom: -20%;
         scale: .32;
+    }
+    .dataArea{
+        top: 5vh;
+        flex-direction: column;
+        gap: 3em;
+    }
+    .stopScreen{
+        h2{
+            font-size: 3.5vw !important;
+        }
+    }
+}
+
+@media screen and (max-width: 1500px) {
+    body {
+        font-size: 14px !important;
+    }
+
+    .keyboard{
+        position: absolute;
+        bottom: -5%;
+        scale: .75;
     }
     .dataArea{
         top: 5vh;
@@ -722,5 +744,50 @@ section {
     .waves {
         height: 30vh;
         min-height: 40px;
+    }
+}
+
+.stopScreen{
+    z-index: 100;
+    position: fixed;
+    inset: 0;
+    height: 100dvh;
+    width: 100dvw;
+    background: var(--darkShadow);
+    backdrop-filter: blur(10px);
+    h1{
+        position: absolute;
+        bottom: 50%;
+        font-size: 8vw;
+        text-shadow: 0 0 10px var(--darkShadow);
+        font-family: var(--font2);
+    }
+    h2{
+        position: absolute;
+        font-family: var(--font1);
+        font-size: 1.5vw;
+        bottom: 45%;
+    }
+    .stop{
+        position: absolute;
+        width: 150px;
+        aspect-ratio: 1;
+        background: rgba(255, 235, 205, 0.07);
+        bottom: 15%;
+        border-radius: 50%;
+    }
+    .stop::before,.stop::after{
+        content: '';
+        position: absolute;
+        height: 60%;
+        aspect-ratio: 1.5/5;
+        background: var(--bgcolor);
+        border-radius: 20px;
+    }
+    .stop::before{
+        transform: translateX(-25px);
+    }
+    .stop::after{
+        transform: translateX(25px);
     }
 }

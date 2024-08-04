@@ -203,21 +203,21 @@ const resultgenerate = (result) => {
 }
 function categorizeWPM(wpm) {
     if (wpm < 30) {
-      return "belowAverage";
+        return "belowAverage";
     } else if (wpm >= 30 && wpm < 40) {
-      return "average";
+        return "average";
     } else if (wpm >= 40 && wpm < 60) {
-      return "aboveAverage";
+        return "aboveAverage";
     } else if (wpm >= 60 && wpm < 80) {
-      return "fast";
+        return "fast";
     } else if (wpm >= 80 && wpm < 100) {
-      return "veryFast";
+        return "veryFast";
     } else if (wpm >= 100) {
-      return "expert";
+        return "expert";
     } else {
-      return "Invalid WPM";
+        return "Invalid WPM";
     }
-  }
+}
 
 let currentWord = 1;
 let wordCnt = 0;
@@ -227,6 +227,8 @@ let mode = 4;
 let animationSpeed = 1
 let timerInterval;
 let timer = 0;
+let isRunning = false;
+let isStopped = false;
 let typetrig = 1;
 let mistakes = 0;
 let count = 0;
@@ -280,7 +282,7 @@ const resetData = () => {
     typeBox.innerHTML = ''; // Clear previous content
 
     setMode(mode)
-    startTimer();
+    toggleTimer()
     resetCnt()
     document.querySelector('.progress').style.setProperty('--progress-width', `0%`);
 }
@@ -318,7 +320,7 @@ const setMode = (mode) => {
 const checkLetter = (letter) => {
     let currentLetter = document.querySelector(`.current`)
     const lastLetter = document.querySelector(`.typeBox>span:nth-child(${currentWord - 1})`)
-    if(!currentLetter){
+    if (!currentLetter) {
         alert("You typed too hard. Dammit!")
         restart()
         return
@@ -369,27 +371,27 @@ const checkLetter = (letter) => {
             }
         }
 
-        if (currentWord == wordCnt && mode!= 5) {
+        if (currentWord == wordCnt && mode != 5) {
             //Win Condition
             activateEndscreen()
         }
-        else if (currentWord == wordCnt && mode== 5) {
+        else if (currentWord == wordCnt && mode == 5) {
             currentWord = 0
             typetrig = 1
             setTimeout(() => {
                 fetchMovieLine()
             }, 1000);
             sentences++
-            document.querySelector('.sentencesCnt').innerHTML=sentences
+            document.querySelector('.sentencesCnt').innerHTML = sentences
         } else {
             currentWord++;
         }
     }
 
-    if(document.querySelector(`.typeBox>span:nth-child(${currentWord})`)){
+    if (document.querySelector(`.typeBox>span:nth-child(${currentWord})`)) {
         document.querySelector(`.typeBox>span:nth-child(${currentWord})`).classList.add('current');
     }
-    
+
     document.querySelector('.rightCnt').innerHTML = rightCnt
     document.querySelector('.wrongCnt').innerHTML = wrongCnt
 
@@ -409,9 +411,9 @@ const calculatePercent = () => {
     progressElement.style.setProperty('--progress-width', `${percent}%`);
 }
 
-const currentChecker = () =>{
+const currentChecker = () => {
     let currentLetter = document.querySelector(`.current`)
-    if(!currentLetter){
+    if (!currentLetter) {
         console.log("no current")
         return false
     }
@@ -421,17 +423,20 @@ const currentChecker = () =>{
 document.addEventListener('keydown', function (event) {
     const code = event.code;
     if (keybinds[code].name == "Esc") {
-        if(mode == 5){
+        if (mode == 5) {
             console.log("zenmode reset")
             activateEndscreen()
-        }else{
+        } else {
             resetData()
         }
+    } else if (keybinds[code].name == "enter") {
+        generateStopScreen()
+        toggleTimer()
     } else {
-        if(currentChecker()){
+        if (currentChecker()) {
             if (typetrig == 0) {
                 const keyElement = document.querySelector(`.key.${keybinds[code].name}`);
-        
+
                 lightUp(keyElement)
                 checkLetter(keybinds[code].text)
             } else {
@@ -444,17 +449,20 @@ document.addEventListener('keydown', function (event) {
 });
 
 function handleClick(keyname) {
-    if(keyname == "zan"){
+    if (keyname == "zan") {
         activateZenMode()
-    }else if(keyname == "Esc"){
-        if(mode == 5){
+    } else if (keyname == "Esc") {
+        if (mode == 5) {
             console.log("zenmode reset")
             activateEndscreen()
-        }else{
+        } else {
             resetData()
         }
-    }else{
-        if(currentChecker()){
+    } else if (keyname == "enter") {
+        generateStopScreen()
+        toggleTimer()
+    } else {
+        if (currentChecker()) {
             if (typetrig == 0) {
                 const keyElement = document.querySelector(`.key.${keyname}`);
                 lightUp(keyElement)
@@ -465,37 +473,38 @@ function handleClick(keyname) {
 }
 
 
-const activateZenMode = () =>{
+const activateZenMode = () => {
+    toggleTimer()
     const title = document.querySelector('.shikaTypo')
     const waves = document.querySelector('.waves')
     if (waves) {
-        if(waves.classList.contains('zen')){
+        if (waves.classList.contains('zen')) {
             waves.classList.remove('zen');
-            title.innerHTML="Shika-typo"
+            title.innerHTML = "Shika-typo"
             document.querySelector('.stopbutton').classList.add('hide')
             document.querySelector('.resetbutton').classList.remove('hide')
             document.querySelector('.endbutton').classList.add('hide')
-            document.querySelector('.wordsCount').style.display='flex'
-            document.querySelector('.animationBox').style.display='flex'
-            document.querySelector('.progressBar').style.display='flex'
-            document.querySelector('.sentencesBox').style.display='none'
-            document.querySelector('.zenmode').style.display='none'
+            document.querySelector('.wordsCount').style.display = 'flex'
+            document.querySelector('.animationBox').style.display = 'flex'
+            document.querySelector('.progressBar').style.display = 'flex'
+            document.querySelector('.sentencesBox').style.display = 'none'
+            document.querySelector('.zenmode').style.display = 'none'
 
-            mode=4
+            mode = 4
             resetData()
-        }else{
+        } else {
             waves.classList.add('zen');
-            title.innerHTML="Shika-typo <span>Zan</span>"
+            title.innerHTML = "Shika-typo <span>Zan</span>"
             document.querySelector('.stopbutton').classList.remove('hide')
             document.querySelector('.resetbutton').classList.add('hide')
             document.querySelector('.endbutton').classList.remove('hide')
-            document.querySelector('.wordsCount').style.display='none'
-            document.querySelector('.animationBox').style.display='none'
-            document.querySelector('.progressBar').style.display='none'
-            document.querySelector('.sentencesBox').style.display='flex'
-            document.querySelector('.zenmode').style.display='block'
+            document.querySelector('.wordsCount').style.display = 'none'
+            document.querySelector('.animationBox').style.display = 'none'
+            document.querySelector('.progressBar').style.display = 'none'
+            document.querySelector('.sentencesBox').style.display = 'flex'
+            document.querySelector('.zenmode').style.display = 'block'
 
-            mode=5
+            mode = 5
             resetData()
         }
     }
@@ -558,7 +567,7 @@ async function displayLetters(sentence, animationSpeed) {
     }
 
     document.querySelector('.typeBox>span:nth-child(1)').classList.add('current')
-    typetrig=0
+    typetrig = 0
 }
 function countLetters(sentence) {
     const letterCount = sentence.length;
@@ -601,33 +610,38 @@ const animationmode = (speed) => {
     }
 }
 
-function startTimer() {
-    if (timerInterval) {
-        clearInterval(timerInterval); // Clear any existing interval
-    }
-    timer = 0; // Reset timer
-
+function updateTimer() {
     const min1 = document.querySelector('.min1');
     const min2 = document.querySelector('.min2');
     const sec1 = document.querySelector('.sec1');
     const sec2 = document.querySelector('.sec2');
 
-    timerInterval = setInterval(function () {
-        let minutes = parseInt(timer / 60, 10);
-        let seconds = parseInt(timer % 60, 10);
+    let minutes = parseInt(timer / 60, 10);
+    let seconds = parseInt(timer % 60, 10);
 
-        // Format minutes and seconds as two digits
-        let minutesStr = String(minutes).padStart(2, '0');
-        let secondsStr = String(seconds).padStart(2, '0');
+    let minutesStr = String(minutes).padStart(2, '0');
+    let secondsStr = String(seconds).padStart(2, '0');
 
-        // Update the HTML elements
-        min1.textContent = minutesStr[0];
-        min2.textContent = minutesStr[1];
-        sec1.textContent = secondsStr[0];
-        sec2.textContent = secondsStr[1];
+    min1.textContent = minutesStr[0];
+    min2.textContent = minutesStr[1];
+    sec1.textContent = secondsStr[0];
+    sec2.textContent = secondsStr[1];
 
-        timer++;
-    }, 1000);
+    timer++;
+}
+
+function startTimer() {
+    timerInterval = setInterval(updateTimer, 1000);
+}
+
+function toggleTimer() {
+    if (isRunning) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    } else {
+        startTimer();
+    }
+    isRunning = !isRunning;
 }
 
 const activateEndscreen = () => {
@@ -635,17 +649,18 @@ const activateEndscreen = () => {
     let sentenceBox = ""
 
     let wpm = 0
-    if(mode == 5){
+    if (mode == 5) {
         wpm = Math.round((zenwordCnt / 5) / (timer / 60))
-        sentenceBox=`
+        sentenceBox = `
             <div class="box">
                 Sentences - <span>${sentences}</span>
             </div>
         `
-    }else{
+        wordCnt = zenwordCnt
+    } else {
         wpm = Math.round((count / 5) / (timer / 60))
     }
-    
+
     const endscreen = document.querySelector('.successScreen')
     if (endscreen) {
         endscreen.remove()
@@ -691,7 +706,25 @@ const activateEndscreen = () => {
     }
 }
 
+const generateStopScreen = () => {
+    if(document.querySelector('.stopScreen')){
+        document.querySelector('.stopScreen').remove()
+    }else{
+        var screen = document.createElement('div')
+        screen.className = 'stopScreen center'
+        screen.innerHTML = `
+                <h1>Time Stopped</h1>
+                <h2>Press Enter to Continue</h2>
+                <span class="stop center"></span>
+            `
+        document.querySelector('body').append(screen)
+    }
+}
+
 const restart = () => {
     activateEndscreen()
     resetData()
+    toggleTimer()
 }
+
+toggleTimer()
