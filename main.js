@@ -228,7 +228,7 @@ let animationSpeed = 1
 let timerInterval;
 let timer = 0;
 let isRunning = false;
-let isStopped = false;
+let isEnded = false;
 let typetrig = 1;
 let mistakes = 0;
 let count = 0;
@@ -277,6 +277,7 @@ const resetData = () => {
     timer = 0;
     mistakes = 0;
     count = 0;
+    isEnded = false
 
     const typeBox = document.querySelector('.typeBox');
     typeBox.innerHTML = ''; // Clear previous content
@@ -430,8 +431,10 @@ document.addEventListener('keydown', function (event) {
             resetData()
         }
     } else if (keybinds[code].name == "enter") {
-        generateStopScreen()
-        toggleTimer()
+        if(!isEnded){
+            generateStopScreen()
+            toggleTimer()
+        }
     } else {
         if (currentChecker()) {
             if (typetrig == 0) {
@@ -459,8 +462,10 @@ function handleClick(keyname) {
             resetData()
         }
     } else if (keyname == "enter") {
-        generateStopScreen()
-        toggleTimer()
+        if(!isEnded){
+            generateStopScreen()
+            toggleTimer()
+        }
     } else {
         if (currentChecker()) {
             if (typetrig == 0) {
@@ -703,6 +708,8 @@ const activateEndscreen = () => {
             <button onclick="restart()">Restart (Press F to restart)</button>
         `
         document.querySelector('body').append(screen)
+
+        isEnded = true
     }
 }
 
