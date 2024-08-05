@@ -532,6 +532,7 @@ async function fetchRandomWords(amount) {
         typetrig = 0
     } catch (error) {
         console.error('Error fetching random words:', error);
+        generateRandomOffline()
     }
 }
 async function fetchMovieLine() {
@@ -547,7 +548,16 @@ async function fetchMovieLine() {
         typetrig = 0
     } catch (error) {
         console.error('Error fetching movie line:', error);
+        generateRandomOffline()
     }
+}
+
+function generateRandomOffline(){
+    const line = "This is a sample line";
+    document.querySelector('.spacebar').innerHTML = "Sample"
+    displayLetters(line, animationSpeed);
+    countLetters(line);
+    typetrig = 0
 }
 
 async function displayLetters(sentence, animationSpeed) {
