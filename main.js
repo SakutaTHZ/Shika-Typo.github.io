@@ -745,3 +745,13 @@ const restart = () => {
 }
 
 toggleTimer()
+
+
+function openControlSection(){
+    const controlSection = document.querySelector('.controlSection')
+    if(controlSection.classList.contains('close')){
+        controlSection.classList.remove('close')
+    }else{
+        controlSection.classList.add('close')
+    }
+}

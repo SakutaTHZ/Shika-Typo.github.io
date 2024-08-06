@@ -767,12 +767,13 @@ section {
 .controlSection{
     z-index: 1000;
     position: fixed;
-    width: 40%;
+    width: 600px;
     height: 100dvh;
     inset: 0;
     background: var(--darkShadow);
     backdrop-filter: blur(10px);
     border-right: 1px solid var(--lightShadow);
+    transition: 0.5s cubic-bezier(0.6, -0.28, 0.735, 0.045);
 
     .controlSectionController{
         position: absolute;
@@ -781,14 +782,18 @@ section {
         background: none;
         border: 0;
         padding: 10px;
-        transition: 0.5s cubic-bezier(0.55, 0.055, 0.675, 0.19);
-    }
-    .controlSectionController.open{
-        transform: translateX(45px);
+        transition: 0.2s linear;
     }
     .controlSectionController:hover{
         transform: scale(1.1);
         cursor: pointer;
+    }
+}
+.controlSection.close{
+    transform: translateX(-600px);
+    
+    .controlSectionController{
+        transform: translateX(45px);
     }
 }
 
