@@ -1,6 +1,6 @@
 var keys = {
     row1: [
-        { mainLabel: "Esc", secLabel: "", bottomLabel: ``, className: "key Esc" },
+        { mainLabel: "Esc", secLabel: "", bottomLabel: ``, className: "key Esc controlKey" },
         { mainLabel: "1", secLabel: "!", bottomLabel: "F1", className: "key one" },
         { mainLabel: "2", secLabel: "@", bottomLabel: "F2", className: "key two" },
         { mainLabel: "3", secLabel: "#", bottomLabel: "F3", className: "key three" },
@@ -13,10 +13,10 @@ var keys = {
         { mainLabel: "0", secLabel: ")", bottomLabel: "F10", className: "key zero" },
         { mainLabel: "-", secLabel: "_", bottomLabel: "F11", className: "key minus" },
         { mainLabel: "=", secLabel: "+", bottomLabel: "F12", className: "key equal" },
-        { mainLabel: "Backspace", secLabel: "", bottomLabel: "", className: "key backspace" }
+        { mainLabel: "Backspace", secLabel: "", bottomLabel: "", className: "key backspace controlKey" }
     ],
     row2: [
-        { mainLabel: "Tab", secLabel: "", bottomLabel: "", className: "key tab" },
+        { mainLabel: "Tab", secLabel: "", bottomLabel: "", className: "key tab controlKey" },
         { mainLabel: "Q", secLabel: "", bottomLabel: "", className: "key Q" },
         { mainLabel: "W", secLabel: "", bottomLabel: "", className: "key W" },
         { mainLabel: "E", secLabel: "", bottomLabel: "", className: "key E" },
@@ -32,7 +32,7 @@ var keys = {
         { mainLabel: "\\", secLabel: "|", bottomLabel: "", className: "key backslash" }
     ],
     row3: [
-        { mainLabel: "CapsLock", secLabel: "", bottomLabel: "", className: "key capslock" },
+        { mainLabel: "CapsLock", secLabel: "", bottomLabel: "", className: "key capslock controlKey" },
         { mainLabel: "A", secLabel: "", bottomLabel: "", className: "key A" },
         { mainLabel: "S", secLabel: "", bottomLabel: "", className: "key S" },
         { mainLabel: "D", secLabel: "", bottomLabel: "", className: "key D" },
@@ -44,10 +44,10 @@ var keys = {
         { mainLabel: "L", secLabel: "", bottomLabel: "", className: "key L" },
         { mainLabel: ";", secLabel: ":", bottomLabel: "", className: "key semicolon" },
         { mainLabel: "'", secLabel: "\"", bottomLabel: "", className: "key quote" },
-        { mainLabel: "Enter", secLabel: "", bottomLabel: "", className: "key enter" }
+        { mainLabel: "Enter", secLabel: "", bottomLabel: "", className: "key enter controlKey" }
     ],
     row4: [
-        { mainLabel: "Shift", secLabel: "", bottomLabel: "", className: "key leftShift" },
+        { mainLabel: "Shift", secLabel: "", bottomLabel: "", className: "key leftShift controlKey" },
         { mainLabel: "Z", secLabel: "", bottomLabel: "", className: "key Z" },
         { mainLabel: "X", secLabel: "", bottomLabel: "", className: "key X" },
         { mainLabel: "C", secLabel: "", bottomLabel: "", className: "key C" },
@@ -58,17 +58,17 @@ var keys = {
         { mainLabel: ",", secLabel: "<", bottomLabel: "PgDn", className: "key comma" },
         { mainLabel: ".", secLabel: ">", bottomLabel: "", className: "key period" },
         { mainLabel: "/", secLabel: "?", bottomLabel: "↑", className: "key slash ArrowUp" },
-        { mainLabel: "Shift", secLabel: "", bottomLabel: "", className: "key rightShift" }
+        { mainLabel: "Shift", secLabel: "", bottomLabel: "", className: "key rightShift controlKey" }
     ],
     row5: [
-        { mainLabel: "Ctrl", secLabel: "", bottomLabel: "", className: "key leftCtrl" },
-        { mainLabel: "Win", secLabel: "", bottomLabel: "", className: "key leftWin" },
-        { mainLabel: "Alt", secLabel: "", bottomLabel: "", className: "key leftAlt" },
+        { mainLabel: "Ctrl", secLabel: "", bottomLabel: "", className: "key leftCtrl controlKey" },
+        { mainLabel: "Win", secLabel: "", bottomLabel: "", className: "key leftWin controlKey" },
+        { mainLabel: "Alt", secLabel: "", bottomLabel: "", className: "key leftAlt controlKey" },
         { mainLabel: "_", secLabel: "", bottomLabel: "", className: "key spacebar" },
-        { mainLabel: "Alt", secLabel: "", bottomLabel: "←", className: "key rightAlt ArrowLeft" },
-        { mainLabel: "Prt", secLabel: "", bottomLabel: "↓", className: "key prt ArrowDown" },
-        { mainLabel: "Ctrl", secLabel: "", bottomLabel: "→", className: "key rightCtrl ArrowRight" },
-        { mainLabel: "ZAN", secLabel: "", bottomLabel: "⌨️", className: "key zan" }
+        { mainLabel: "Alt", secLabel: "", bottomLabel: "←", className: "key rightAlt ArrowLeft controlKey" },
+        { mainLabel: "Prt", secLabel: "", bottomLabel: "↓", className: "key prt ArrowDown controlKey" },
+        { mainLabel: "Ctrl", secLabel: "", bottomLabel: "→", className: "key rightCtrl ArrowRight controlKey" },
+        { mainLabel: "ZAN", secLabel: "", bottomLabel: "⌨️", className: "key zan controlKey" }
     ]
 };
 

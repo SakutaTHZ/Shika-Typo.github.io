@@ -24,6 +24,7 @@
     --darkShadow: rgba(0, 0, 0, 0.3);
 
     --keyColor: rgb(216, 216, 216);
+    --contolKeysColor: #FFC600;
     --keyFontColor: black;
 
     /* Fonts */
@@ -86,7 +87,7 @@ section {
             padding: 15px;
             background: var(--keyColor);
             border-radius: 4px;
-            box-shadow: inset 5px 5px rgba(0, 0, 0, 0.1),inset -5px -5px rgba(0, 0, 0, 0.1),inset 0 0 10px rgba(0, 0, 0, 0.5),inset 0 0 50px var(--keyColor);
+            box-shadow: inset 0px 5px rgba(0, 0, 0, 0.1),inset 0px -5px rgba(0, 0, 0, 0.1),inset 5px 0px rgba(0, 0, 0, 0.1),inset -5px 0px rgba(0, 0, 0, 0.1),inset 0 0 10px rgba(0, 0, 0, 0.5);
             transform-style: preserve-3d;
             transform: perspective(2000px);
             z-index: 2;
@@ -138,6 +139,11 @@ section {
             transform: translateZ(200px);
             animation: 3s rgb linear alternate infinite;
             border: 1px solid var(--hightlightColor);
+
+            p,
+            span {
+                color: var(--hightlightColor);
+            }
         }
 
         /* To check the right side */
@@ -192,6 +198,9 @@ section {
             transform: translateZ(30px) rotateY(-5deg);
             /* box-shadow: 0 0 10px var(--hightlightColor); */
             animation: 3s rgb linear alternate infinite;
+        }
+        .key.controlKey{
+            background: var(--contolKeysColor);
         }
 
         .key.leftCtrl,
@@ -641,45 +650,6 @@ section {
     gap: 5vh;
 }
 
-@media screen and (max-width: 767px) {
-    body {
-        font-size: 14px !important;
-    }
-
-    .keyboard{
-        position: absolute;
-        bottom: -20%;
-        scale: .32;
-    }
-    .dataArea{
-        top: 5vh;
-        flex-direction: column;
-        gap: 3em;
-    }
-    .stopScreen{
-        h2{
-            font-size: 3.5vw !important;
-        }
-    }
-}
-
-@media screen and (max-width: 1500px) {
-    body {
-        font-size: 14px !important;
-    }
-
-    .keyboard{
-        position: absolute;
-        bottom: -5%;
-        scale: .75;
-    }
-    .dataArea{
-        top: 5vh;
-        flex-direction: column;
-        gap: 3em;
-    }
-}
-
 .hero_area {
     position: fixed;
     bottom: 0;
@@ -791,5 +761,73 @@ section {
     }
     .stop::after{
         transform: translateX(25px);
+    }
+}
+
+.controlSection{
+    z-index: 1000;
+    position: fixed;
+    width: 40%;
+    height: 100dvh;
+    inset: 0;
+    background: var(--darkShadow);
+    backdrop-filter: blur(10px);
+    border-right: 1px solid var(--lightShadow);
+
+    .controlSectionController{
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: none;
+        border: 0;
+        padding: 10px;
+        transition: 0.5s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    }
+    .controlSectionController.open{
+        transform: translateX(45px);
+    }
+    .controlSectionController:hover{
+        transform: scale(1.1);
+        cursor: pointer;
+    }
+}
+
+
+@media screen and (max-width: 767px) {
+    body {
+        font-size: 14px !important;
+    }
+
+    .keyboard{
+        position: absolute;
+        bottom: -20%;
+        scale: .32;
+    }
+    .dataArea{
+        top: 5vh;
+        flex-direction: column;
+        gap: 3em;
+    }
+    .stopScreen{
+        h2{
+            font-size: 3.5vw !important;
+        }
+    }
+}
+
+@media screen and (max-width: 1500px) {
+    body {
+        font-size: 14px !important;
+    }
+
+    .keyboard{
+        position: absolute;
+        bottom: -5%;
+        scale: .75;
+    }
+    .dataArea{
+        top: 5vh;
+        flex-direction: column;
+        gap: 3em;
     }
 }
