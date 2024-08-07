@@ -1,0 +1,4 @@
+Features to Add
+
+- Keys generation (Have to have cool designs and animations if possible)
+- Keys Customization (3 types - normal keys,function keys,    )

@@ -74,6 +74,7 @@ section {
     border-radius: 10px;
     flex-direction: column;
     gap: 3px;
+    z-index: 100;
 
     .keyrow {
         display: flex;
@@ -655,8 +656,8 @@ section {
     bottom: 0;
     width: 100dvw;
     height: 100vh;
-    background-color: var(--bgcolor);
-    z-index: -100;
+    background-color: transparent;
+    z-index: 20;
 }
 
 .waves {
