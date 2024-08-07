@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Redacted+Script:wght@300;400;700&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0%;
+    padding: 0%;
+    font: inherit;
+    font-family: var(--font3);
+}
+
+img,
+picture,
+svg,
+video {
+    display: block;
+    max-width: 100%;
+}
+
+html {
+    color-scheme: dark light;
+}
+
+body {
+    min-height: 100dvh;
+}
+
+:root {
+    /* Colors */
+    --bgcolor: black;
+    --priColor: #ffba52;
+    --secColor: #ff2f00;
+    --hightlightColor: #FFC600;
+    --fontColor: white;
+    --lightShadow: rgba(255, 255, 255, .3);
+    --darkShadow: rgba(0, 0, 0, 0.3);
+
+    /* Key Colors */
+    --keyboardColor: black;
+    --keyColor: rgb(216, 216, 216);
+    --keyShadowColor: rgba(0, 0, 0, 0.2);
+    --keyTopFontColor: black;
+    --keyBotFontColor: black;
+    --FunctionKeysColor: #FFC600;
+
+    /* Fonts */
+    --font1: "Redacted Script", cursive;
+    --font2: "Pacifico", cursive;
+    --font3: "Source Code Pro", monospace;
+    --normal-fontSize: calc(0.1vw + 2vh);
+    --title-fontsize: calc(2vw + 2vh);
+}
+.dataCol,.dataRow,.dataGroup,.keyControls{
+    display: flex;
+    gap: 10px;
+    border-radius: 8px;
+}
+.dataCol,.dataGroup,.keyControls{
+    flex-direction: column;
+}
+
+.dataGroup{
+    width: 100%;
+    border: 1px solid hsl(from var(--lightShadow) h s l / .05);
+    padding: 20px;
+}
+
+input[type="color"]{
+    width: 100%;
+    border: 1px solid hsl(from var(--lightShadow) h s l / .05);
+    padding: 0;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+/* Remove the default border and add a custom border */
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+    border: none;
+    border-radius: 8px;
+}
+
+/* Change the appearance when hovering over the color input */
+input[type="color"]:hover {
+    border: 2px solid #ccc;
+}
+
+/* Change the appearance when focusing on the color input */
+input[type="color"]:focus {
+    outline: none;
+    border: 2px solid #66afe9;
+}
+
+
+section {
+    width: 100dvw;
+    height: 100dvh;
+    background: radial-gradient(circle at bottom, #000000, #000000 10%, transparent 10%, transparent 20%, #000000 20%, #000000 30%, transparent 30%, transparent 40%, #000000 40%, #000000 50%, transparent 50%, transparent 60%, #000000 60%, #000000 70%, transparent 70%, transparent 80%, #000000 80%, #000000 90%, transparent 90%);
+    background-size: 3em 3em;
+    background-color: #080808;
+    opacity: 1;
+
+    nav {
+        position: fixed;
+        inset: 0;
+        width: 300px;
+        height: 100dvh;
+        padding: 20px;
+        background: var(--darkShadow);
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+        
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: .5s linear;
+
+        .toggleNav {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            width: 30px;
+            aspect-ratio: 1;
+            background: none;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+            .menu,
+            .menu::before,
+            .menu::after {
+                width: 80%;
+                height: 3px;
+                background: var(--hightlightColor);
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition: .5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            }
+
+            .menu::before,
+            .menu::after {
+                content: '';
+                position: absolute;
+            }
+
+            .menu::before{
+                transform: translateY(8px);
+            }
+            .menu::after{
+                transform: translateY(-8px);
+            }
+        }
+        .toggleNav:hover{
+            transform: scale(.75);
+            cursor: pointer;
+        }
+        .toggleNav:hover .menu::before{
+            width: 50%;
+            transform: translateX(-8px) translateY(5px) rotate(45deg);
+        }
+        .toggleNav:hover .menu::after{
+            width: 50%;
+            transform: translateX(-8px) translateY(-5px) rotate(-45deg);
+        }
+
+        .logo{
+            position: absolute;
+            bottom: 10px;
+            width: 50%;
+            filter: invert(1);
+            opacity: .03;
+            transition: .3s linear,filter 0s ease-in-out;
+        }
+        .keyControls{
+            position: relative;
+            width: 100%;
+        }
+    }
+
+    nav.close{
+        left: -300px;
+        .toggleNav{
+            right: -40px;
+            rotate: 180deg;
+        }
+        .logo{
+            opacity: .1;
+            transform: translateX(150%);
+            transition: 2s cubic-bezier(0.68, -0.55, 0.265, 1.55),filter 0s ease-in-out;
+        }
+    }
+}
+
+
+
+/* Mobile devices (Portrait, less than 480px) */
+@media (max-width: 480px) {
+    .logo{
+        width: 100px !important;
+    }
+    nav.close{
+        .logo{
+            transform: translateX(200%) !important;
+        }
+    }
+}
+
+/* Small tablets (Portrait and landscape, 481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    /* Your CSS here */
+}
+
+/* Tablets (Portrait and landscape, 769px to 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    /* Your CSS here */
+}
+
+/* Small desktops (1025px to 1200px) */
+@media (min-width: 1025px) and (max-width: 1200px) {
+    /* Your CSS here */
+}
+
+/* Large desktops (1201px and above) */
+@media (min-width: 1201px) {
+    /* Your CSS here */
+}

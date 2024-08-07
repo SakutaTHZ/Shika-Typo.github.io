@@ -1,12 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shika-Typo</title>
     <link rel="icon" href="images/Shika-typo Logo.svg" type="image/icon type">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/keyboard.css">
 </head>
+
 <body>
-    
+    <section class="Shika-Typo">
+        <nav class="">
+            <button class="toggleNav">
+                <span class="menu"></span>
+            </button>
+
+            <div class="keyControls">
+                <div class="dataGroup">
+                    <h1>Key Colors</h1>
+                    <div class="dataCol">
+                        <h2>Normal Keys Color</h2>
+                        <input type="color" name="normalKeyColor" id="normalKeyColor" value="#D8D8D8">
+                    </div>
+                    <div class="dataCol">
+                        <h2>Function Keys Color</h2>
+                        <input type="color" name="functionKeyColor" id="functionKeyColor" value="#FFC600">
+                    </div>
+                    <div class="dataCol">
+                        <h2>Special Keys Color</h2>
+                        <input type="color" name="specialKeyColor" id="specialKeyColor" value="#FFC600">
+                    </div>
+                </div>
+
+                <div class="dataGroup">
+                    <h1>Key Text Colors</h1>
+                    <div class="dataCol">
+                        <h2>Upper Text Color</h2>
+                        <input type="color" name="topTextColor" id="topTextColor" value="">
+                    </div>
+                    <div class="dataCol">
+                        <h2>Bottom Text Color</h2>
+                        <input type="color" name="botTextColor" id="botTextColor" value="">
+                    </div>
+                </div>
+
+                <div class="dataGroup">
+                    <h1>Other Options</h1>
+                    <div class="dataRow">
+                        <input type="checkbox" name="removeText" id="removeText">
+                        <h2>Remove Texts</h2>
+                    </div>
+                </div>
+            </div>
+
+            <img class="logo" src="images/Shika-typo Logo.svg" alt="logo">
+        </nav>
+    </section>
+
+    <!-- Javascripts -->
+    <script src="js/main.js"></script>
+    <script src="js/keyboardAction.js"></script>
 </body>
+
 </html>

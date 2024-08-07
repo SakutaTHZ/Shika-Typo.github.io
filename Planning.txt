@@ -1,4 +1,11 @@
 Features to Add
 
+- Create a better key JSON structure
+
 - Keys generation (Have to have cool designs and animations if possible)
-- Keys Customization (3 types - normal keys,function keys,    )
+- Keys Customization (3 types - normal keys,function keys,special keys), Key Color,Shadow Color,Text Color (Top,Bottom)
+- Key Actions
+    - Click Actions (Exclude Function clicks)
+    - Functions for Keys like (Esc to Quit, Enter to stop, ZAN For Zen Mode)
+- Key Press Animation
+
