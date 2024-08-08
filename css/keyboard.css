@@ -1,0 +1,243 @@
+:root {
+    /* Colors */
+    --bgcolor: black;
+    --priColor: #ffba52;
+    --secColor: #ff2f00;
+    --hightlightColor: #FFC600;
+    --fontColor: rgb(255, 255, 255);
+    --lightShadow: rgba(255, 255, 255, .2);
+    --darkShadow: rgba(0, 0, 0, 0.3);
+
+    /* Key Colors */
+    --keyboardColor: black;
+    --keyColor: rgb(42, 42, 42);
+    --keyShadowColor: rgba(0, 0, 0, 0.1);
+    --keyTopFontColor: black;
+    --keyBotFontColor: black;
+    --FunctionKeysColor: #924b10;
+
+    /* Fonts */
+    --font1: "Redacted Script", cursive;
+    --font2: "Pacifico", cursive;
+    --font3: "Source Code Pro", monospace;
+    --normal-fontSize: calc(0.1vw + 2vh);
+    --title-fontsize: calc(2vw + 2vh);
+}
+
+.keyboardContainer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.keyboard {
+    display: flex;
+    border: 1px solid var(--lightShadow);
+    backdrop-filter: blur(20px);
+    padding: 10px;
+    border-radius: 10px;
+    flex-direction: column;
+    gap: 3px;
+    z-index: 100;
+    width: fit-content;
+
+    .keyrow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        gap: 3px;
+
+        .key {
+            position: relative;
+            padding: 15px;
+            background: var(--keyColor);
+            border-radius: 4px;
+            box-shadow: inset 0px 5px var(--keyShadowColor),inset 0px -10px var(--keyShadowColor),inset 7px 0px var(--keyShadowColor),inset -7px 0px var(--keyShadowColor),inset 0 0 10px var(--keyShadowColor);
+            transform-style: preserve-3d;
+            transform: perspective(2000px);
+            border: 1px solid var(--keyboardColor);
+            z-index: 2;
+
+            width: 72px;
+            height: 72px;
+            transition: .5s ease-in-out, 0s z-index ease-in-out;
+
+            p,
+            span {
+                color: var(--keyTopFontColor);
+                font-family:var(--font3);   
+                font-weight: 900;
+                position: absolute;
+            }
+
+            span {
+                font-size: calc(var(--normal-fontSize)/1.5);
+                bottom: 8px;
+                right: 8px;
+                color: var(--keyBotFontColor);
+            }
+
+            p {
+                position: relative;
+                inset: 0 4px;  
+                text-wrap: nowrap;
+
+                span {
+                    position: relative;
+                }
+            }
+        }
+        .key::before{
+            content: '';
+            position: absolute;
+            width: 90%;
+            height: 88%;
+            background: var(--keyColor);
+            left: 5%;
+            top: 3%;
+            border-radius: 4px;
+        }
+
+        .key.highlight {
+            border: 1px solid var(--hightlightColor);
+            background: var(--priColor);
+            box-shadow: none;
+            p,
+            span {
+                color: var(--bgcolor);
+            }
+        }
+
+        .key:hover {
+            scale: 1.15;
+            z-index: 10;
+            transform: translateZ(200px);
+            box-shadow: inset 0px 5px var(--keyShadowColor),inset 0px -10px var(--keyShadowColor),inset 7px 0px var(--keyShadowColor),inset -7px 0px var(--keyShadowColor),inset 0 0 10px var(--keyShadowColor),0 0 10px var(--keyShadowColor), 0 0 20px var(--keyShadowColor), 0 0 30px var(--keyShadowColor), 0 0 40px var(--keyShadowColor);
+            border: 1px solid var(--keyboardColor);
+            cursor: pointer;
+            p,
+            span {
+                color: var(--FunctionKeysColor);
+            }
+        }
+
+        /* To check the right side */
+        .key:hover+* {
+            scale: 1.1;
+            z-index: 9;
+            transform: translateZ(150px) rotateY(20deg);
+        }
+
+        .key:hover+*+* {
+            scale: 1.05;
+            z-index: 8;
+            transform: translateZ(70px) rotateY(15deg);
+        }
+
+        .key:hover+*+*+* {
+            z-index: 7;
+            transform: translateZ(30px) rotateY(5deg);
+        }
+
+        /* To check the right side */
+        .key:has(+ *:hover) {
+            scale: 1.1;
+            z-index: 9;
+            transform: translateZ(150px) rotateY(-20deg);
+        }
+
+        .key:has(+* + *:hover) {
+            scale: 1.05;
+            z-index: 8;
+            transform: translateZ(70px) rotateY(-15deg);
+        }
+
+        .key:has(+ * + * + *:hover) {
+            z-index: 7;
+            transform: translateZ(30px) rotateY(-5deg);
+        }
+        .key.controlKey{
+            background: var(--FunctionKeysColor);
+        }
+        .key.controlKey::before{
+            background: var(--FunctionKeysColor);
+        }
+
+        .key.leftCtrl,
+        .key.leftWin,
+        .key.leftAlt,
+        .key.rightAlt,
+        .key.zan,
+        .key.rightCtrl {
+            width: 90px;
+        }
+        .key.zan{
+            color: var(--bgcolor);
+            animation: 5s zanMode linear infinite alternate;
+        }
+
+        .key.tab,
+        .key.backslash {
+            width: 108px;
+        }
+
+        .key.capslock {
+            width: 128px;
+        }
+
+        .key.capslock.active {
+            box-shadow: 0 0 10px var(--priColor);
+
+            p,
+            span {
+                color: var(--priColor) !important;
+            }
+        }
+
+        .key.backspace {
+            width: 144px;
+        }
+
+        .key.leftShift,
+        .key.enter {
+            width: 162px;
+        }
+
+        .key.rightShift {
+            width: 204px;
+        }
+
+        .key.spacebar {
+            width: 486px;
+            font-family: var(--font2);
+            letter-spacing: .05em;
+            color: var(--keyFontColor);
+            font-weight: bold;
+        }
+    }
+}
+
+@media screen and (max-width: 767px) {
+    body {
+        font-size: 14px !important;
+    }
+
+    .keyboard{
+        scale: .35 !important;
+    }
+}
+
+@media screen and (max-width: 1500px) {
+    body {
+        font-size: 14px !important;
+    }
+
+    .keyboard{
+        bottom: -5%;
+        scale: .75;
+    }
+}
