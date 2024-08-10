@@ -551,7 +551,6 @@ async function fetchMovieLine() {
         generateRandomOffline()
     }
 }
-
 function generateRandomOffline(){
     const line = "This is a sample line";
     document.querySelector('.spacebar').innerHTML = "Sample"
@@ -584,6 +583,7 @@ async function displayLetters(sentence, animationSpeed) {
     document.querySelector('.typeBox>span:nth-child(1)').classList.add('current')
     typetrig = 0
 }
+
 function countLetters(sentence) {
     const letterCount = sentence.length;
     wordCnt = letterCount;

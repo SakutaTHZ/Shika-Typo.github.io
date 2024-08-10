@@ -45,6 +45,17 @@ function createKeyboard(keys) {
 // Call the function to create the keyboard
 createKeyboard(keys);
 
+const lightUp = (className) => {
+    let keyElement = document.querySelector(`.${className}`)
+    if (keyElement) {
+        keyElement.classList.add('highlight');
+
+        setTimeout(() => {
+            keyElement.classList.remove('highlight');
+        }, 1000);
+    }
+}
+
 function handleClick(key, opKey=null) {
     if(current >= letters.length){
         console.log("Hurrayyy you've completed")
@@ -71,6 +82,8 @@ function handleClick(key, opKey=null) {
         if(current < letters.length) document.querySelector(`.typeBox>span:nth-child(${current+1})`).classList.add('current')
         console.log(letters[current])
     }
+
+    opKey == null ? lightUp(key) : lightUp(opKey.code)
 }
 
 window.addEventListener("keydown", (e) => handleClick("" ,e))
@@ -119,3 +132,8 @@ async function fetchMovieLine() {
     }
 }
 fetchMovieLine()
+
+function ChangeKeyboard(element, target) {
+    document.documentElement.style.setProperty(`--${target}`, element.value)
+    console.log(element.value)
+}

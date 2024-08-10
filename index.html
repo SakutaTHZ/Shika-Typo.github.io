@@ -25,15 +25,15 @@
                     <h1>Key Colors</h1>
                     <div class="dataCol">
                         <h2>Normal Keys Color</h2>
-                        <input type="color" name="normalKeyColor" id="normalKeyColor" value="#D8D8D8">
+                        <input type="color" name="normalKeyColor" id="normalKeyColor" value="#D8D8D8" onchange="ChangeKeyboard(this, 'keyColor')">
                     </div>
                     <div class="dataCol">
                         <h2>Function Keys Color</h2>
-                        <input type="color" name="functionKeyColor" id="functionKeyColor" value="#FFC600">
+                        <input type="color" name="functionKeyColor" id="functionKeyColor" value="#FFC600" onchange="ChangeKeyboard(this, 'FunctionKeysColor')">
                     </div>
                     <div class="dataCol">
                         <h2>Special Keys Color</h2>
-                        <input type="color" name="specialKeyColor" id="specialKeyColor" value="#FFC600">
+                        <input type="color" name="specialKeyColor" id="specialKeyColor" value="#FFC600" onchange="ChangeKeyboard(this, 'SpecialKeysColor')">
                     </div>
                 </div>
 
@@ -41,11 +41,11 @@
                     <h1>Key Text Colors</h1>
                     <div class="dataCol">
                         <h2>Upper Text Color</h2>
-                        <input type="color" name="topTextColor" id="topTextColor" value="">
+                        <input type="color" name="topTextColor" id="topTextColor" value="" onchange="ChangeKeyboard(this, 'keyTopFontColor')">
                     </div>
                     <div class="dataCol">
                         <h2>Bottom Text Color</h2>
-                        <input type="color" name="botTextColor" id="botTextColor" value="">
+                        <input type="color" name="botTextColor" id="botTextColor" value="" onchange="ChangeKeyboard(this, 'keyBotFontColor')">
                     </div>
                 </div>
 

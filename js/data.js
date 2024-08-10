@@ -1,5 +1,5 @@
 var keys = {
-    Escape: { value: "Esc", secLabel: "", bottomLabel: "", className: "key Esc Escape controlKey", rowNum: 1 },
+    Escape: { value: "Esc", secLabel: "", bottomLabel: "", className: "key Esc Escape controlKey specialKey", rowNum: 1 },
     Digit1: { value: "1", secLabel: "!", bottomLabel: "F1", className: "key one Digit1", rowNum: 1 },
     Digit2: { value: "2", secLabel: "@", bottomLabel: "F2", className: "key two Digit2", rowNum: 1 },
     Digit3: { value: "3", secLabel: "#", bottomLabel: "F3", className: "key three Digit3", rowNum: 1 },
@@ -60,8 +60,8 @@ var keys = {
     MetaLeft: { value: "Win", secLabel: "", bottomLabel: "", className: "key leftWin MetaLeft controlKey", rowNum: 5 },
     AltLeft: { value: "Alt", secLabel: "", bottomLabel: "", className: "key leftAlt AltLeft controlKey", rowNum: 5 },
     Space: { value: " ", secLabel: "", bottomLabel: "", className: "key spacebar Space", rowNum: 5 },
-    AltRight: { value: "Alt", secLabel: "", bottomLabel: "←", className: "key rightAlt ArrowLeft AltRight controlKey", rowNum: 5 },
-    PrintScreen: { value: "Prt", secLabel: "", bottomLabel: "↓", className: "key prt ArrowDown PrintScreen controlKey", rowNum: 5 },
-    ControlRight: { value: "Ctrl", secLabel: "", bottomLabel: "→", className: "key rightCtrl ArrowRight ControlRight controlKey", rowNum: 5 },
+    AltRight: { value: "Alt", secLabel: "", bottomLabel: "←", className: "key rightAlt AltRight ArrowLeft controlKey", rowNum: 5 },
+    PrintScreen: { value: "Prt", secLabel: "", bottomLabel: "↓", className: "key prt PrintScreen ArrowDown controlKey", rowNum: 5 },
+    ControlRight: { value: "Ctrl", secLabel: "", bottomLabel: "→", className: "key rightCtrl ControlRight ArrowRight controlKey", rowNum: 5 },
     Zan: { value: "ZAN", secLabel: "", bottomLabel: "⌨️", className: "key zan Zan controlKey", rowNum: 5 }
 };
