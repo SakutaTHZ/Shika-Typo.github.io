@@ -9,17 +9,17 @@
     --darkShadow: rgba(0, 0, 0, 0.3);
 
     /* Key Colors */
-    --keyboardColor: black;
-    --keyColor: rgb(42, 42, 42);
+    --keyboardColor: white;
+    --keyColor: white;
     --keyShadowColor: rgba(0, 0, 0, 0.1);
     --keyTopFontColor: black;
     --keyBotFontColor: black;
-    --FunctionKeysColor: #924b10;
+    --FunctionKeysColor: #FFC600;
 
     /* Fonts */
-    --font1: "Redacted Script", cursive;
+    --font3: "Redacted Script", cursive;
     --font2: "Pacifico", cursive;
-    --font3: "Source Code Pro", monospace;
+    --font1: "Source Code Pro", monospace;
     --normal-fontSize: calc(0.1vw + 2vh);
     --title-fontsize: calc(2vw + 2vh);
 }

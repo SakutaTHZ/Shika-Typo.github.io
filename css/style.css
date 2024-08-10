@@ -24,6 +24,9 @@ html {
 
 body {
     min-height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 :root {
@@ -45,9 +48,9 @@ body {
     --FunctionKeysColor: #FFC600;
 
     /* Fonts */
-    --font1: "Redacted Script", cursive;
+    --font3: "Redacted Script", cursive;
     --font2: "Pacifico", cursive;
-    --font3: "Source Code Pro", monospace;
+    --font1: "Source Code Pro", monospace;
     --normal-fontSize: calc(0.1vw + 2vh);
     --title-fontsize: calc(2vw + 2vh);
 }
@@ -198,6 +201,10 @@ section {
             transition: 2s cubic-bezier(0.68, -0.55, 0.265, 1.55),filter 0s ease-in-out;
         }
     }
+}
+
+.dataArea {
+    width: 100dvw;
 }
 
 
