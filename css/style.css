@@ -29,6 +29,12 @@ body {
     align-items: flex-start;
 }
 
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 :root {
     /* Colors */
     --bgcolor: black;
@@ -141,7 +147,7 @@ section {
             .menu::after {
                 width: 80%;
                 height: 3px;
-                background: var(--hightlightColor);
+                background: var(--FunctionKeysColor);
 
                 display: flex;
                 justify-content: center;
@@ -201,12 +207,73 @@ section {
             transition: 2s cubic-bezier(0.68, -0.55, 0.265, 1.55),filter 0s ease-in-out;
         }
     }
+
+    
+    .dataArea{
+        width: 100dvw;
+        position: absolute;
+        top: 0;
+        padding-top: 8vh;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 5vh;
+
+        .shikaTypo {
+            font-size: calc(var(--normal-fontSize) *2);
+            font-family: var(--font2);
+            background: -webkit-linear-gradient(45deg,var(--FunctionKeysColor), var(--keyColor));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            span{
+                color: var(--keyColor);
+                text-shadow: 2px 2px var(--lightShadow);
+            }
+
+            animation: 3s spiny linear infinite;
+        }
+
+        .typeBox {
+            text-align: center;
+            width: 75dvw;
+            padding-bottom: 10px;
+        
+            span {
+                font-size: calc(var(--title-fontsize)/1.5);
+                font-family: var(--font1);
+                color: var(--lightShadow);
+                padding: 3px .5px;
+            }
+        
+            span.right {
+                color: var(--hightlightColor);
+            }
+        
+            span.wrong {
+                color: var(--secColor);
+            }
+        
+            span.current {
+                animation: .5s currentblink linear alternate infinite;
+            }
+        
+            .space.wrong {
+                display: inline-flex;
+                width: 10px;
+                border-bottom: 1px solid var(--secColor);
+            }
+        }
+    }
 }
 
-.dataArea {
-    width: 100dvw;
-}
+@keyframes currentblink {
+    from {
+        border-bottom: 3px solid transparent;
+    }
 
+    to {
+        border-bottom: 3px solid var(--hightlightColor);
+    }
+}
 
 
 /* Mobile devices (Portrait, less than 480px) */

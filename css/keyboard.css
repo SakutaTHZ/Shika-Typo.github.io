@@ -60,7 +60,7 @@
             box-shadow: inset 0px 5px var(--keyShadowColor),inset 0px -10px var(--keyShadowColor),inset 7px 0px var(--keyShadowColor),inset -7px 0px var(--keyShadowColor),inset 0 0 10px var(--keyShadowColor);
             transform-style: preserve-3d;
             transform: perspective(2000px);
-            border: 1px solid var(--keyboardColor);
+            border: 1px solid var(--lightShadow);
             z-index: 2;
             display: flex;
 
@@ -129,10 +129,6 @@
             box-shadow: inset 0px 5px var(--keyShadowColor),inset 0px -10px var(--keyShadowColor),inset 7px 0px var(--keyShadowColor),inset -7px 0px var(--keyShadowColor),inset 0 0 10px var(--keyShadowColor),0 0 10px var(--keyShadowColor), 0 0 20px var(--keyShadowColor), 0 0 30px var(--keyShadowColor), 0 0 40px var(--keyShadowColor);
             border: 1px solid var(--keyboardColor);
             cursor: pointer;
-            p,
-            span {
-                color: var(--FunctionKeysColor);
-            }
         }
 
         /* To check the right side */
@@ -231,8 +227,11 @@
             width: 486px;
             font-family: var(--font2);
             letter-spacing: .05em;
-            color: var(--keyFontColor);
+            color: var(--keyTopFontColor);
             font-weight: bold;
+        }
+        .key.spacebar::before{
+            opacity: 0;
         }
     }
 }

@@ -53,7 +53,7 @@ const lightUp = (className) => {
 
         setTimeout(() => {
             keyElement.classList.remove('highlight');
-        }, 1000);
+        }, 500);
     }
 }
 
