@@ -1,6 +1,57 @@
 var letters = []
 var current = 0;
 var IsKeyBoardLocked = true;
+var ZanMode = false;
+
+const counts = {
+    rightCount: {
+        count: 0,
+        divName: "rightCount"
+    },
+    wrongCount: {
+        count: 0,
+        divName: "wrongCount"
+    },
+}
+
+const modes = [
+    {
+        name: "normal",
+        init: () => {
+            ZanMode = false;
+            ChangeTitle("Shika-typo")
+        }
+    },
+    {
+        name: "zan",
+        init: () => {
+            ZanMode = true;
+            ChangeTitle("Shika-typo Zan")
+        }
+    }
+]
+var CurrentMode = 0; 
+// 0 === normal mode and 1 === zan mode
+
+function ChangeMode(mode) {
+    modes[mode]?.init()
+}
+
+const ChangeTitle = (changes) => document.querySelector(".shikaTypo").innerHTML = changes;
+
+const ChangeCounts = () => {
+    for (const countElement in counts) {
+        document.querySelector(`.${counts[countElement].divName}`).innerHTML = counts[countElement].count;
+    }
+}
+
+const ShakeKeyboard = () => {
+    document.querySelector('.keyboard').classList.add('shake');
+
+    setTimeout(() => {
+        document.querySelector('.keyboard').classList.remove('shake');
+    }, 500);
+}
 
 function createKeyboard(keys) {
     const rows = {};
@@ -57,39 +108,60 @@ const lightUp = (className) => {
     }
 }
 
+function checkIfEnded() {
+    if (current >= letters.length && !ZanMode) {
+        alert("done")
+        return true;
+    }else if (current >= letters.length && ZanMode) {
+        current = 0;
+        fetchMovieLine()
+        IsKeyBoardLocked = true;
+        return true;
+    }
+    return false
+}
+
 function handleClick(key, opKey = null) {
-    if (current >= letters.length) {
-        console.log("Hurrayyy you've completed")
+    if(key == "Zan") {
+        ChangeMode(1)
     } else if (opKey !== null && opKey.keyCode == 13) {
         console.log("Enter")
     } else if (opKey !== null && opKey.keyCode == 27) {
         console.log("Escape")
     } else if (opKey !== null && opKey.keyCode == 8) { // BACKSPACE
-        console.log(current)
         if (current < 1) return
         if (document.querySelector(`.typeBox>span:nth-child(${current})`).classList.contains("right")) {
+            counts.rightCount.count--;
             document.querySelector(`.typeBox>span:nth-child(${current})`).classList.remove('right')
-        } else document.querySelector(`.typeBox>span:nth-child(${current})`).classList.remove('wrong')
+        } else {
+            counts.wrongCount.count--;
+            document.querySelector(`.typeBox>span:nth-child(${current})`).classList.remove('wrong')
+        }
+        ChangeCounts()
 
         document.querySelector(`.typeBox>span:nth-child(${current + 1})`).classList.remove('current')
         if (current - 1 >= 0) current--;
     } else if (opKey !== null && opKey.keyCode == 9) {
         console.log("Tab")
-    } else if (opKey !== null && opKey.keyCode !== 32 && opKey.keyCode < 47 || IsKeyBoardLocked) {
+    } else if (opKey !== null && opKey.keyCode !== 32 && opKey.keyCode < 47 || IsKeyBoardLocked || checkIfEnded()) {
         return
     } else {
         let typedKey = opKey == null ? keys[key] : keys[opKey.code]
-        console.log(typedKey, key)
+
         if (typedKey.value.toLowerCase() == letters[current]) {
             document.querySelector(`.typeBox>span:nth-child(${current + 1})`).classList.add('right')
-            console.log("correct", typedKey.value, letters[current])
+            counts.rightCount.count++;
+            ChangeCounts()
         } else {
             document.querySelector(`.typeBox>span:nth-child(${current + 1})`).classList.add('wrong')
-            console.log("incorrect", typedKey.value, letters[current])
+            counts.wrongCount.count++;
+            ShakeKeyboard()
+            ChangeCounts()
         }
         document.querySelector(`.typeBox>span:nth-child(${current + 1})`).classList.remove('current')
         current++;
     }
+    checkIfEnded()
     if (current < letters.length) document.querySelector(`.typeBox>span:nth-child(${current + 1})`).classList.add('current')
 
     opKey == null ? lightUp(key) : lightUp(opKey.code)
