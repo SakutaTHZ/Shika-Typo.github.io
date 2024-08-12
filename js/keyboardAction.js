@@ -1,5 +1,6 @@
 var letters = []
-var current  = 0;
+var current = 0;
+var IsKeyBoardLocked = true;
 
 function createKeyboard(keys) {
     const rows = {};
@@ -56,39 +57,47 @@ const lightUp = (className) => {
     }
 }
 
-function handleClick(key, opKey=null) {
-    if(current >= letters.length){
+function handleClick(key, opKey = null) {
+    if (current >= letters.length) {
         console.log("Hurrayyy you've completed")
-    }else if(opKey !== null && opKey.keyCode == 13){
+    } else if (opKey !== null && opKey.keyCode == 13) {
         console.log("Enter")
-    }else if(opKey !== null && opKey.keyCode == 27){
+    } else if (opKey !== null && opKey.keyCode == 27) {
         console.log("Escape")
-    }else if(opKey !== null && opKey.keyCode == 9){
+    } else if (opKey !== null && opKey.keyCode == 8) { // BACKSPACE
+        console.log(current)
+        if (current < 1) return
+        if (document.querySelector(`.typeBox>span:nth-child(${current})`).classList.contains("right")) {
+            document.querySelector(`.typeBox>span:nth-child(${current})`).classList.remove('right')
+        } else document.querySelector(`.typeBox>span:nth-child(${current})`).classList.remove('wrong')
+
+        document.querySelector(`.typeBox>span:nth-child(${current + 1})`).classList.remove('current')
+        if (current - 1 >= 0) current--;
+    } else if (opKey !== null && opKey.keyCode == 9) {
         console.log("Tab")
-    }else if(opKey !== null && opKey.keyCode !== 32 && opKey.keyCode < 47) { 
-        return 
-    }else {
+    } else if (opKey !== null && opKey.keyCode !== 32 && opKey.keyCode < 47 || IsKeyBoardLocked) {
+        return
+    } else {
         let typedKey = opKey == null ? keys[key] : keys[opKey.code]
         console.log(typedKey, key)
-        if(typedKey.value.toLowerCase() == letters[current]) {
-            document.querySelector(`.typeBox>span:nth-child(${current+1})`).classList.add('right')
+        if (typedKey.value.toLowerCase() == letters[current]) {
+            document.querySelector(`.typeBox>span:nth-child(${current + 1})`).classList.add('right')
             console.log("correct", typedKey.value, letters[current])
-        }else {
-            document.querySelector(`.typeBox>span:nth-child(${current+1})`).classList.add('wrong')
+        } else {
+            document.querySelector(`.typeBox>span:nth-child(${current + 1})`).classList.add('wrong')
             console.log("incorrect", typedKey.value, letters[current])
         }
-        document.querySelector(`.typeBox>span:nth-child(${current+1})`).classList.remove('current')
+        document.querySelector(`.typeBox>span:nth-child(${current + 1})`).classList.remove('current')
         current++;
-        if(current < letters.length) document.querySelector(`.typeBox>span:nth-child(${current+1})`).classList.add('current')
-        console.log(letters[current])
     }
+    if (current < letters.length) document.querySelector(`.typeBox>span:nth-child(${current + 1})`).classList.add('current')
 
     opKey == null ? lightUp(key) : lightUp(opKey.code)
 }
 
-window.addEventListener("keydown", (e) => handleClick("" ,e))
+window.addEventListener("keydown", (e) => handleClick("", e))
 
-async function displayLetters(sentence, animationSpeed){
+async function displayLetters(sentence, animationSpeed) {
     var typeBox = document.querySelector('.typeBox');
     letters = []
     typeBox.innerHTML = ''; // Clear previous content
@@ -98,7 +107,7 @@ async function displayLetters(sentence, animationSpeed){
         letters.push(letter)
         const span = document.createElement('span');
         span.textContent = letter
-        
+
         if (letter == " ") {
             span.classList.add('space')
         }
@@ -112,6 +121,7 @@ async function displayLetters(sentence, animationSpeed){
 
 
     document.querySelector('.typeBox>span:nth-child(1)').classList.add('current')
+    IsKeyBoardLocked = false;
 }
 
 // displayLetters("Technology frightens me to death. It's designed by engineers to impress other engineers. And they always come with instruction booklets that are written by engineers for other engineers — which is why almost no technology ever works.", 10)

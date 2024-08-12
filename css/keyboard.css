@@ -62,10 +62,11 @@
             transform: perspective(2000px);
             border: 1px solid var(--keyboardColor);
             z-index: 2;
+            display: flex;
 
             width: 72px;
             height: 72px;
-            transition: .5s ease-in-out, 0s z-index ease-in-out;
+            transition: .5s cubic-bezier(0.68, -0.55, 0.265, 1.55), 0s z-index ease-in-out;
 
             p,
             span {
@@ -101,16 +102,24 @@
             left: 5%;
             top: 3%;
             border-radius: 4px;
+            transition: .5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
         .key.highlight {
-            border: 1px solid var(--hightlightColor);
-            background: var(--priColor);
-            box-shadow: none;
+            background: var(--keyColor);
+            box-shadow: inset 0px 7.5px var(--keyShadowColor),inset 0px -7.5px var(--keyShadowColor),inset 7.5px 0px var(--keyShadowColor),inset -7.5px 0px var(--keyShadowColor),inset 0 0 20px var(--keyShadowColor);
+            filter: brightness(.85);
+            scale: .98;
             p,
             span {
                 color: var(--bgcolor);
             }
+        }
+        .key.highlight::before{
+            width: 70%;
+            height: 75%;
+            left: 14%;
+            top: 13%;
         }
 
         .key:hover {
@@ -245,6 +254,6 @@
 
     .keyboard{
         bottom: -5%;
-        scale: .75;
+        scale: .85;
     }
 }

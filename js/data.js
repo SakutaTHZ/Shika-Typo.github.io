@@ -38,7 +38,7 @@ var keys = {
     KeyH: { value: "H", secLabel: "", bottomLabel: "Insert", className: "key H KeyH", rowNum: 3 },
     KeyJ: { value: "J", secLabel: "", bottomLabel: "Home", className: "key J KeyJ", rowNum: 3 },
     KeyK: { value: "K", secLabel: "", bottomLabel: "PgUp", className: "key K KeyK", rowNum: 3 },
-    KeyL: { value: "L", secLabel: "", bottomLabel: "", className: "key L KeyKeyL", rowNum: 3 },
+    KeyL: { value: "L", secLabel: "", bottomLabel: "", className: "key L KeyL", rowNum: 3 },
     Semicolon: { value: ";", secLabel: ":", bottomLabel: "", className: "key semicolon Semicolon", rowNum: 3 },
     Quote: { value: "'", secLabel: "\"", bottomLabel: "", className: "key quote Quote", rowNum: 3 },
     Enter: { value: "Enter", secLabel: "", bottomLabel: "", className: "key enter Enter controlKey", rowNum: 3 },
