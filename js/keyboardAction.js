@@ -222,8 +222,8 @@ async function fetchMovieLine() {
         typetrig = 0
         current = 0;
     } catch (error) {
-        console.error('Error fetching movie line:', error);
-        generateRandomOffline()
+        // console.error('Error fetching movie line:', error);
+        fetchMovieLine()
     }
 }
 fetchMovieLine()
