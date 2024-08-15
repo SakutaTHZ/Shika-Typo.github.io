@@ -27,16 +27,58 @@
 
 .keyboardContainer{
     position: absolute;
-    bottom: 0;
+    bottom: -30px;
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
     padding: 10px;
+    flex-direction: column;
+}
+
+.statusBox{
+    background: var(--darkShadow);
+    border: 1px solid var(--lightShadow);
+    width: 100%;
+    display: flex;
+    padding: 5px;
+    gap: 3px;
+
+    *:not(img,b){
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid var(--lightShadow);
+        gap: 5px;
+        padding: 0 10px;
+        border-radius: 4px;
+    }
+
+    .status{
+        img{
+            width: 25px;
+        }
+        b{
+            font-size: var(--normal-fontSize);
+        }
+    }
+    button{
+        background: var(--keyColor);
+        img,b{
+            mix-blend-mode: difference;
+        }
+        transition: .5s ease-in-out;
+    }
+    button:hover{
+        opacity: .5;
+        cursor: pointer;
+    }
 }
 
 .keyboard {
     display: flex;
     border: 1px solid var(--lightShadow);
+    background: var(--darkShadow);
     backdrop-filter: blur(20px);
     padding: 10px;
     border-radius: 10px;
