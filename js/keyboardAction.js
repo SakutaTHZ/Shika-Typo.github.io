@@ -1,6 +1,7 @@
 var letters = []
 var current = 0;
 var IsKeyBoardLocked = true;
+var IsKeyBoardVisible = true;
 var ZanMode = false;
 
 const counts = {
@@ -26,7 +27,9 @@ const modes = [
         name: "zan",
         init: () => {
             ZanMode = true;
+            toggleOff(["exitButton", "zan"], "off")
             ChangeTitle("Shika-typo Zan")
+            fetchMovieLine()
         }
     }
 ]
@@ -46,11 +49,13 @@ const ChangeCounts = () => {
 }
 
 const ShakeKeyboard = () => {
-    document.querySelector('.keyboard').classList.add('shake');
-
-    setTimeout(() => {
-        document.querySelector('.keyboard').classList.remove('shake');
-    }, 500);
+    if(IsKeyBoardVisible){
+        document.querySelector('.keyboard').classList.add('shake');
+    
+        setTimeout(() => {
+            document.querySelector('.keyboard').classList.remove('shake');
+        }, 500);
+    }
 }
 
 function createKeyboard(keys) {
@@ -122,8 +127,12 @@ function checkIfEnded() {
 }
 
 function handleClick(key, opKey = null) {
+    if(IsKeyBoardLocked) return
+
     if(key == "Zan") {
         ChangeMode(1)
+    }else if(key == "Pause") {
+        alert("Pause")
     } else if (opKey !== null && opKey.keyCode == 13) {
         console.log("Enter")
     } else if (opKey !== null && opKey.keyCode == 27) {
@@ -143,7 +152,7 @@ function handleClick(key, opKey = null) {
         if (current - 1 >= 0) current--;
     } else if (opKey !== null && opKey.keyCode == 9) {
         console.log("Tab")
-    } else if (opKey !== null && opKey.keyCode !== 32 && opKey.keyCode < 47 || IsKeyBoardLocked || checkIfEnded()) {
+    } else if (opKey !== null && opKey.keyCode !== 32 && opKey.keyCode < 47 || checkIfEnded()) {
         return
     } else {
         let typedKey = opKey == null ? keys[key] : keys[opKey.code]
@@ -162,7 +171,7 @@ function handleClick(key, opKey = null) {
         current++;
     }
     checkIfEnded()
-    if (current < letters.length) document.querySelector(`.typeBox>span:nth-child(${current + 1})`).classList.add('current')
+    if (current < letters.length && !IsKeyBoardLocked) document.querySelector(`.typeBox>span:nth-child(${current + 1})`).classList.add('current')
 
     opKey == null ? lightUp(key) : lightUp(opKey.code)
 }
@@ -200,14 +209,18 @@ async function displayLetters(sentence, animationSpeed) {
 
 async function fetchMovieLine() {
     try {
+        IsKeyBoardLocked = true;
+        document.querySelector('.typeBox').innerHTML = "<span>GENERATING MORE...</span>"
         const response = await fetch('https://api.quotable.io/random');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
+        
         const movieLine = await response.json();
         document.querySelector('.spacebar').innerHTML = movieLine.author
         displayLetters(movieLine.content.toLowerCase(), 10);
         typetrig = 0
+        current = 0;
     } catch (error) {
         console.error('Error fetching movie line:', error);
         generateRandomOffline()
@@ -218,4 +231,15 @@ fetchMovieLine()
 function ChangeKeyboard(element, target) {
     document.documentElement.style.setProperty(`--${target}`, element.value)
     console.log(element.value)
+}
+
+function toggleOff(elements, classToAdd) {
+    for (let i = 0; i < elements.length; i++) {
+        let e = document.querySelector(`.${elements[i]}`);
+        if(elements[i] == "keyboardTrigger"){
+            IsKeyBoardVisible = !IsKeyBoardVisible
+        }
+        if(e.classList.contains(classToAdd)) e.classList.remove(classToAdd)
+        else e.classList.add(classToAdd)
+    }
 }

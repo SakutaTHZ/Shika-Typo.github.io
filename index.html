@@ -25,15 +25,18 @@
                     <h1>Key Colors</h1>
                     <div class="dataCol">
                         <h2>Normal Keys Color</h2>
-                        <input type="color" name="normalKeyColor" id="normalKeyColor" value="#D8D8D8" onchange="ChangeKeyboard(this, 'keyColor')">
+                        <input type="color" name="normalKeyColor" id="normalKeyColor" value="#D8D8D8"
+                            onchange="ChangeKeyboard(this, 'keyColor')">
                     </div>
                     <div class="dataCol">
                         <h2>Function Keys Color</h2>
-                        <input type="color" name="functionKeyColor" id="functionKeyColor" value="#FFC600" onchange="ChangeKeyboard(this, 'FunctionKeysColor')">
+                        <input type="color" name="functionKeyColor" id="functionKeyColor" value="#FFC600"
+                            onchange="ChangeKeyboard(this, 'FunctionKeysColor')">
                     </div>
                     <div class="dataCol">
                         <h2>Special Keys Color</h2>
-                        <input type="color" name="specialKeyColor" id="specialKeyColor" value="#FFC600" onchange="ChangeKeyboard(this, 'SpecialKeysColor')">
+                        <input type="color" name="specialKeyColor" id="specialKeyColor" value="#FFC600"
+                            onchange="ChangeKeyboard(this, 'SpecialKeysColor')">
                     </div>
                 </div>
 
@@ -41,11 +44,13 @@
                     <h1>Key Text Colors</h1>
                     <div class="dataCol">
                         <h2>Upper Text Color</h2>
-                        <input type="color" name="topTextColor" id="topTextColor" value="" onchange="ChangeKeyboard(this, 'keyTopFontColor')">
+                        <input type="color" name="topTextColor" id="topTextColor" value=""
+                            onchange="ChangeKeyboard(this, 'keyTopFontColor')">
                     </div>
                     <div class="dataCol">
                         <h2>Bottom Text Color</h2>
-                        <input type="color" name="botTextColor" id="botTextColor" value="" onchange="ChangeKeyboard(this, 'keyBotFontColor')">
+                        <input type="color" name="botTextColor" id="botTextColor" value=""
+                            onchange="ChangeKeyboard(this, 'keyBotFontColor')">
                     </div>
                 </div>
 
@@ -60,6 +65,10 @@
 
             <img class="logo" src="images/Shika-typo Logo.svg" alt="logo">
         </nav>
+
+        <button class="keyboardTrigger" onclick="toggleOff(['keyboard', 'keyboardTrigger'], 'off'); this.blur()">
+            <img src="images/svgs/keyboard.svg" alt="">
+        </button>
 
         <div class="dataArea center">
             <h1 class="shikaTypo">Shika-typo</h1>
@@ -83,11 +92,11 @@
         <div class="keyboardContainer">
             <div class="keyboard center key60">
                 <div class="statusBox">
-                    <button class="exitButton">
+                    <button class="exitButton off">
                         <img src="images/svgs/stop.svg" alt="">
-                        <b>Ess to Stop</b>
+                        <b>Esc to Stop</b>
                     </button>
-                    <button class="pauseButton">
+                    <button class="pauseButton" onclick="handleClick('Pause')">
                         <img src="images/svgs/pause.svg" alt="">
                         <b>Enter to Pause</b>
                     </button>
@@ -103,16 +112,17 @@
                         <img src="images/svgs/mistake.svg" alt="">
                         <b class="mistakeCount">0</b>
                     </div>
-                    <div class="status">
+                    <div class="zan status off">
                         <img src="images/svgs/sentence.svg" alt="">
                         <b class="sentenceCount">0</b>
                     </div>
-                </div></div>
+                </div>
             </div>
+        </div>
     </section>
 
     <!-- Javascripts -->
-     <script src="js/data.js"></script>
+    <script src="js/data.js"></script>
     <script src="js/main.js"></script>
     <script src="js/keyboardAction.js"></script>
 </body>

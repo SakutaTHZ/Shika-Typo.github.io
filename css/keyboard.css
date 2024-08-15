@@ -62,6 +62,9 @@
             font-size: var(--normal-fontSize);
         }
     }
+    .status.off,button.off{
+        display: none;
+    }
     button{
         background: var(--keyColor);
         img,b{
@@ -86,6 +89,7 @@
     gap: 3px;
     z-index: 100;
     width: fit-content;
+    transition: .5s linear;
 
     .keyrow {
         display: flex;
@@ -278,8 +282,91 @@
     }
 }
 
+.keyboard.off .keyrow{
+    animation: .5s popoff linear forwards;
+}
+.keyboard.off .keyrow.row-1{
+    animation-delay: .25s;
+}
+.keyboard.off .keyrow.row-2{
+    animation-delay: .5s;
+}
+.keyboard.off .keyrow.row-3{
+    animation-delay: .75s;
+}
+.keyboard.off .keyrow.row-4{
+    animation-delay: 1s;
+}
+.keyboard.off .keyrow.row-5{
+    animation-delay: 1.25s;
+}
+
+@keyframes popoff {
+    from{
+        display: flex;
+        opacity: 1;
+        scale: 1;
+    }to{
+        display: none;
+        opacity: 0;
+        scale: .8;
+    }
+}
+@keyframes popon {
+    from{
+        display: none;
+        opacity: 0;
+        scale: .8;
+    }
+    to{
+        display: flex;
+        opacity: 1;
+        scale: 1;
+    }
+}
+.keyboard.off{
+    transform: translateY(-5vh);
+    width: 80%;
+}
+
 .keyboard.shake {
     animation: .3s shake linear;
+}
+
+.keyboardTrigger{
+    z-index: 10;
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    background: none;
+    border: 1px solid transparent;
+    padding: 5px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img{
+        width: 30px;
+    }
+}
+.keyboardTrigger:hover{
+    cursor: pointer;
+}
+.keyboardTrigger::before{
+    content: '';
+    width: 0%;
+    height: 1px;
+    background: white;
+    position: absolute;
+    box-shadow: 2px 2px var(--bgcolor);
+    rotate: 0deg;
+    transition: .5s cubic-bezier(0.175, 0.885, 0.32, 1.275), .3s width linear;
+    user-select: none;
+}
+.keyboardTrigger.off::before{
+    width: 75%;
+    height: 2px;
+    rotate: -45deg;
 }
 
 @keyframes shake {
