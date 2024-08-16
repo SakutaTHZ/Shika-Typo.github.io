@@ -1,3 +1,8 @@
+/**
+ * This is a documentation for the file KeyboardActions
+ * @var letters 
+*/
+
 var letters = []
 var current = 0;
 var IsKeyBoardLocked = true;
@@ -13,6 +18,10 @@ const counts = {
         count: 0,
         divName: "wrongCount"
     },
+    backspaceMistakes: {
+        count: 0,
+        divName: "mistakeCount"
+    }
 }
 
 const modes = [
@@ -137,7 +146,7 @@ function handleClick(key, opKey = null) {
         console.log("Enter")
     } else if (opKey !== null && opKey.keyCode == 27) {
         console.log("Escape")
-    } else if (opKey !== null && opKey.keyCode == 8) { // BACKSPACE
+    } else if (opKey !== null && opKey.keyCode == 8 || key == "Backspace") { // BACKSPACE
         if (current < 1) return
         if (document.querySelector(`.typeBox>span:nth-child(${current})`).classList.contains("right")) {
             counts.rightCount.count--;
@@ -146,7 +155,9 @@ function handleClick(key, opKey = null) {
             counts.wrongCount.count--;
             document.querySelector(`.typeBox>span:nth-child(${current})`).classList.remove('wrong')
         }
+        counts.backspaceMistakes.count++;
         ChangeCounts()
+        
 
         document.querySelector(`.typeBox>span:nth-child(${current + 1})`).classList.remove('current')
         if (current - 1 >= 0) current--;
@@ -176,7 +187,10 @@ function handleClick(key, opKey = null) {
     opKey == null ? lightUp(key) : lightUp(opKey.code)
 }
 
-window.addEventListener("keydown", (e) => handleClick("", e))
+window.addEventListener("keydown", (e) => {
+    if(e.target.tagName == "INPUT") return
+    handleClick("", e)
+})
 
 async function displayLetters(sentence, animationSpeed) {
     var typeBox = document.querySelector('.typeBox');
