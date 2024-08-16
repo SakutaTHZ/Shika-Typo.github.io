@@ -66,6 +66,8 @@
         display: none;
     }
     button{
+        text-wrap: nowrap;
+        padding: 0 10px;
         background: var(--keyColor);
         img,b{
             mix-blend-mode: difference;

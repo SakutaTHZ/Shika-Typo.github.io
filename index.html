@@ -15,16 +15,33 @@
 
 <body>
     <section class="Shika-Typo">
-        <nav class="close">
+        <nav class="">
             <button class="toggleNav">
                 <span class="menu"></span>
             </button>
 
-            <div class="gameModes">
-                
+            <div class="gameModes" id="gameModes">
+                <div class="dataGroup">
+                    <h1>Game Modes</h1>
+                    <div class="dataCol">
+                        <select id="gameModes">
+                            <option value="normal">Normal</option>
+                            <option value="zan">Zan</option>
+                            <option value="time">Time</option>
+                            <option value="mystery">???</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="dataGroup">
+                    <h1>Play Vs</h1>
+                    <input type="text">
+                    <button class="joinButton" type="submit">Join room</button>
+                    <button class="createButton" type="submit">Create room</button>
+                </div>
             </div>
 
-            <div class="keyControls">
+            <div class="keyControls" id="keyControls">
                 <div class="dataGroup">
                     <h1>Key Colors</h1>
                     <div class="dataCol">
@@ -67,7 +84,7 @@
                 </div>
             </div>
 
-            <img class="logo" src="images/Shika-typo Logo.svg" alt="logo">
+            <!-- <img class="logo" src="images/Shika-typo Logo.svg" alt="logo"> -->
         </nav>
 
         <button class="keyboardTrigger" onclick="toggleOff(['keyboard', 'keyboardTrigger'], 'off'); this.blur()">
