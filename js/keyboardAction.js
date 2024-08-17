@@ -21,6 +21,10 @@ const counts = {
     backspaceMistakes: {
         count: 0,
         divName: "mistakeCount"
+    },
+    sentenceCount: {
+        count: 0,
+        divName: "sentenceCount"
     }
 }
 
@@ -128,6 +132,8 @@ function checkIfEnded() {
         return true;
     }else if (current >= letters.length && ZanMode) {
         current = 0;
+        counts.sentenceCount.count++;
+        ChangeCounts()
         fetchMovieLine()
         IsKeyBoardLocked = true;
         return true;
