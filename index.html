@@ -18,7 +18,7 @@
         <div class="endScreen close">
             <div class="dataBox">
                 <h1 class="titleText">
-                    Game Over
+                    <p><span class="hightlightText">Game</span> Over</p>
                     <span class="roastText">You DID your Best. But not enough</span>
                 </h1>
                 <div class="statsBox">
@@ -27,7 +27,7 @@
                         <div class="status">
                             <img src="images/svgs/timer2.svg" alt="">
                             <span>Time</span>
-                            <b class="sentenceCountFinal">0</b>
+                            <b class="timerFinal">0</b>
                         </div>
                         <div class="status">
                             <img src="images/svgs/right.svg" alt="">
@@ -51,39 +51,81 @@
                         </div>
                     </div>
                     <div class="leaderBox">
-                        <h1>LeaderBoard</h1>
+                        <h1>Review</h1>
                         <div class="leaderBoard">
+                            <div class="position">
+                                <img src="images/svgs/topStar.svg" alt="">
+                                <span>Most incorrect word - </span>
+                                <b class="mostIncorWord">hippopotamus</b>
+                            </div>
                             
-                        <div class="position">
-                            <img src="images/svgs/topStar.svg" alt="">
-                            <span>1. Player 1</span>
-                            <b class="sentenceCountFinal">0</b>
-                        </div>
-                        <div class="position">
-                            <img src="images/svgs/halfStar.svg" alt="">
-                            <span>2. Player 1</span>
-                            <b class="sentenceCountFinal">0</b>
-                        </div>
-                        <div class="position">
-                            <img src="images/svgs/fullStar.svg" alt="">
-                            <span>3. Player 1</span>
-                            <b class="sentenceCountFinal">0</b>
-                        </div>
-                        <div class="position">
-                            <img src="images/svgs/goDown.svg" alt="">
-                            <span>4. Player 1</span>
-                            <b class="sentenceCountFinal">0</b>
-                        </div>
-                        <div class="position">
-                            <img src="images/svgs/goDown.svg" alt="">
-                            <span>5. Player 1</span>
-                            <b class="sentenceCountFinal">0</b>
-                        </div>
-                        <div class="position">
-                            <img src="images/svgs/goDown.svg" alt="">
-                            <span>6. Player 1</span>
-                            <b class="sentenceCountFinal">0</b>
-                        </div>
+                            <h1>Total Mistakes</h1>
+                            <div class="lettersWrongBox">
+                                <div class="wrongLetter">
+                                    <span class="lettername">a</span>
+                                    <span class="wrongletterCount">12</span>
+                                </div>
+                                <div class="wrongLetter">
+                                    <span class="lettername">a</span>
+                                    <span class="wrongletterCount">12</span>
+                                </div>
+                                <div class="wrongLetter">
+                                    <span class="lettername">a</span>
+                                    <span class="wrongletterCount">12</span>
+                                </div>
+                                <div class="wrongLetter">
+                                    <span class="lettername">a</span>
+                                    <span class="wrongletterCount">12</span>
+                                </div>
+                                <div class="wrongLetter">
+                                    <span class="lettername">a</span>
+                                    <span class="wrongletterCount">12</span>
+                                </div>
+                                <div class="wrongLetter">
+                                    <span class="lettername">a</span>
+                                    <span class="wrongletterCount">12</span>
+                                </div>
+                                <div class="wrongLetter">
+                                    <span class="lettername">a</span>
+                                    <span class="wrongletterCount">12</span>
+                                </div>
+                                <div class="wrongLetter">
+                                    <span class="lettername">a</span>
+                                    <span class="wrongletterCount">12</span>
+                                </div>
+                                <div class="wrongLetter">
+                                    <span class="lettername">a</span>
+                                    <span class="wrongletterCount">12</span>
+                                </div>
+                                <div class="wrongLetter">
+                                    <span class="lettername">a</span>
+                                    <span class="wrongletterCount">12</span>
+                                </div>
+                                <div class="wrongLetter">
+                                    <span class="lettername">a</span>
+                                    <span class="wrongletterCount">12</span>
+                                </div>
+                                <div class="wrongLetter">
+                                    <span class="lettername">a</span>
+                                    <span class="wrongletterCount">12</span>
+                                </div>
+                                <div class="wrongLetter">
+                                    <span class="lettername">a</span>
+                                    <span class="wrongletterCount">12</span>
+                                </div>
+                                <div class="wrongLetter">
+                                    <span class="lettername">a</span>
+                                    <span class="wrongletterCount">12</span>
+                                </div>
+                                <div class="wrongLetter">
+                                    <span class="lettername">a</span>
+                                    <span class="wrongletterCount">12</span>
+                                </div>
+                                <div class="wrongLetter">
+                                    <span class="lettername">a</span>
+                                    <span class="wrongletterCount">12</span>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
@@ -93,9 +135,14 @@
                         <p>Wpm : </p>
                         <b class="wpmCount">200</b>wpm
                     </div>
-                    <button class="restart">Restart (Press F to Start)</button>
+                    <button class="restart" onclick="restart()">Press Esc to <span class="hightlightText">Restart</span></button>
                 </div>
             </div>
+        </div>
+
+        <div class="pauseScreen close" onclick="unPause()">
+            <h1><img src="images/svgs/pause.svg" alt="">Time Stopped</h1>
+            <p>Press Enter to <span class="hightlightText">Return</span></p>
         </div>
 
         <nav class="close">
@@ -219,6 +266,10 @@
                     <div class="zan status off">
                         <img src="images/svgs/sentence.svg" alt="">
                         <b class="sentenceCount">0</b>
+                    </div>
+                    <div class="status timer">
+                        <img src="images/svgs/timer2.svg" alt="">
+                        <b class="secondCount">0</b>
                     </div>
                 </div>
             </div>

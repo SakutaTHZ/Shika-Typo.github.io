@@ -8,6 +8,20 @@ var current = 0;
 var IsKeyBoardLocked = true;
 var IsKeyBoardVisible = true;
 var ZanMode = false;
+var firstCharacterPressed = false;
+var time = 0; // in seconds
+var wpm = 0;
+var count = 0;
+var timerCounter = null;
+
+const wpmrate = {
+    belowAverage: ["You need to try harder", "A turtle can type faster than you", "I fell asleep while waiting for you to type"],
+    average: ["You have average typing speed", "That was Okay", "Try better next time"],
+    aboveAverage: ["Good Job! That was above average", "You are better than 60% of the people, I guess", "You are getting good"],
+    fast: ["Oh! That was fast", "You suprised me", "Try getting 69 next time"],
+    veryFast: ["Slow down. No ones following you", "Put some ice on your fingers", "Fast and furious baby"],
+    expert: ["You better be a typist", "Try changing your profession to a typist", "Hmm, Are you Cheating?"],
+}
 
 const counts = {
     rightCount: {
@@ -34,6 +48,7 @@ const modes = [
         init: () => {
             ZanMode = false;
             ChangeTitle("Shika-typo")
+            fetchMovieLine()
         }
     },
     {
@@ -112,6 +127,37 @@ function createKeyboard(keys) {
     }
 }
 
+// this is for the end screen status generation
+function endScreenStats({
+    sentences = 1,
+}= {}) {
+    let result = "";
+    if (wpm < 30) {
+        result = "belowAverage";
+    } else if (wpm >= 30 && wpm < 40) {
+        result = "average";
+    } else if (wpm >= 40 && wpm < 60) {
+        result = "aboveAverage";
+    } else if (wpm >= 60 && wpm < 80) {
+        result = "fast";
+    } else if (wpm >= 80 && wpm < 100) {
+        result = "veryFast";
+    } else if (wpm >= 100) {
+        result = "expert";
+    }
+    const resultText = wpmrate[result][Math.floor(Math.random() * wpmrate[result].length)];
+    document.querySelector(".roastText").innerText = resultText;
+
+    document.querySelector(".timerFinal").innerText = time;
+    document.querySelector(".rightCountFinal").innerText = counts.rightCount.count;
+    document.querySelector(".wrongCountFinal").innerText = counts.wrongCount.count;
+    document.querySelector(".mistakeCountFinal").innerText = counts.backspaceMistakes.count;
+    document.querySelector(".sentenceCountFinal").innerText = sentences.count;
+    document.querySelector(".wpmCount").innerText = wpm;
+    clearInterval(timerCounter);
+    timerCounter = null;
+}
+
 // Call the function to create the keyboard
 createKeyboard(keys);
 
@@ -126,9 +172,29 @@ const lightUp = (className) => {
     }
 }
 
+function timerToggle() {
+    time++;
+    wpm = Math.round((count / 5) / (time / 60))
+    document.querySelector(".secondCount").innerHTML = time
+}
+
+function restart(){
+    document.querySelector(".endScreen").classList.add("close")
+    if(ZanMode){
+        ChangeMode(1)
+    }else{
+        ChangeMode(0)
+    }
+}
+function unPause(){
+    document.querySelector(".pauseScreen").classList.add("close")
+}
+
 function checkIfEnded() {
     if (current >= letters.length && !ZanMode) {
-        alert("done")
+        document.querySelector(".endScreen").classList.remove("close")
+        IsKeyBoardLocked = true
+        endScreenStats()
         return true;
     }else if (current >= letters.length && ZanMode) {
         current = 0;
@@ -142,16 +208,28 @@ function checkIfEnded() {
 }
 
 function handleClick(key, opKey = null) {
+    
     if(IsKeyBoardLocked) return
+    if(!firstCharacterPressed) {
+        timerCounter = setInterval(() => {
+            timerToggle()
+        }, 1000)
+    }
 
     if(key == "Zan") {
-        ChangeMode(1)
+        if(ZanMode){
+            ChangeMode(0)
+        }else{
+            ChangeMode(1)
+        }
+        console.log(ZanMode)
     }else if(key == "Pause") {
-        alert("Pause")
+        document.querySelector(".pauseScreen").classList.remove("close")
     } else if (opKey !== null && opKey.keyCode == 13) {
         console.log("Enter")
     } else if (opKey !== null && opKey.keyCode == 27) {
         console.log("Escape")
+        //restart game
     } else if (opKey !== null && opKey.keyCode == 8 || key == "Backspace") { // BACKSPACE
         if (current < 1) return
         if (document.querySelector(`.typeBox>span:nth-child(${current})`).classList.contains("right")) {
@@ -172,6 +250,7 @@ function handleClick(key, opKey = null) {
     } else if (opKey !== null && opKey.keyCode !== 32 && opKey.keyCode < 47 || checkIfEnded()) {
         return
     } else {
+        firstCharacterPressed = true;
         let typedKey = opKey == null ? keys[key] : keys[opKey.code]
 
         if (typedKey.value.toLowerCase() == letters[current]) {
@@ -186,10 +265,10 @@ function handleClick(key, opKey = null) {
         }
         document.querySelector(`.typeBox>span:nth-child(${current + 1})`).classList.remove('current')
         current++;
+        count++;
     }
     checkIfEnded()
     if (current < letters.length && !IsKeyBoardLocked) document.querySelector(`.typeBox>span:nth-child(${current + 1})`).classList.add('current')
-
     opKey == null ? lightUp(key) : lightUp(opKey.code)
 }
 

@@ -152,6 +152,7 @@ section {
     background-size: 3em 3em;
     background-color: #080808;
     opacity: 1;
+    animation: 2s loadin linear forwards;
 
     nav {
         position: fixed;
@@ -182,7 +183,7 @@ section {
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: 2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: 2s cubic-bezier(0.68, -0.55, 0.265, 1.55),0s right linear;
 
             .menu,
             .menu::before,
@@ -248,7 +249,7 @@ section {
 
     /* width */
     nav::-webkit-scrollbar {
-        width: 5px;
+        width: 3px;
     }
 
     /* Track */
@@ -340,6 +341,10 @@ section {
     }
 }
 
+.hightlightText{
+    color: var(--FunctionKeysColor);
+}
+
 .endScreen {
     position: fixed;
     width: 100dvw;
@@ -351,6 +356,7 @@ section {
     z-index: 1000;
     background: linear-gradient(180deg,var(--darkShadow),var(--bgcolor));
     backdrop-filter: blur(20px);
+    animation: 1.5s opacityOpen ease-in-out forwards;
 
     .dataBox {
         width: 50%;
@@ -363,6 +369,7 @@ section {
         display: flex;
         flex-direction: column;
         gap: 20px;
+        animation: 1s popUpTop linear forwards;
 
         .titleText {
             display: flex;
@@ -394,10 +401,12 @@ section {
             display: flex;
             gap: 10px;
             .stats,.leaderBox{
-                width: 50%;
+                width: 40%;
                 border: 1px dashed var(--lightShadow);
                 padding: 10px;
                 border-radius: 10px;
+            }.leaderBox{
+                width: 60%;
             }
             h1{
                 font-size: calc( var(--title-fontsize) *.5 ) !important;
@@ -419,7 +428,9 @@ section {
                     transition: .5s linear;
 
                     span{
+                        padding-left: 10px;
                         width: 100%;
+                        color: var(--FunctionKeysColor);
                     }
                 }
                 .status:hover{
@@ -441,9 +452,33 @@ section {
                         display: flex;
                         align-items: center;
                         justify-content: center;
+                        padding-bottom: 10px;
                         gap: 10px;
                         span{
                             width: 100%;
+                        }
+                    }
+                    .mostIncorWord{
+                        font-weight: bold;
+                    }
+                    .lettersWrongBox{
+                        display: flex;
+                        flex-wrap: wrap;
+                        width: 100%;
+                        gap: 10px;
+                        .wrongLetter{
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 5px;
+                            border: 1px solid var(--lightShadow);
+                            padding: 3px 7.5px;
+                            border-radius: 4px;
+                            .lettername{
+                                font-weight: bold;
+                                color: var(--FunctionKeysColor);
+                                font-family: var(--font1);
+                            }
                         }
                     }
                 }
@@ -455,6 +490,7 @@ section {
             justify-content: flex-end;
             gap: 10px;
             button{
+                text-wrap: nowrap;
                 width: 50%;
                 background: var(--bgcolor);
                 border: 1px solid var(--lightShadow);
@@ -472,6 +508,75 @@ section {
 }
 .endScreen.close{
     display: none;
+    animation: 1s opacityClose ease-in-out forwards;
+}
+.pauseScreen{
+    position: fixed;
+    width: 100dvw;
+    height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1.5em;
+    z-index: 1000;
+    background: linear-gradient(180deg,var(--darkShadow),var(--bgcolor));
+    backdrop-filter: blur(20px);
+    animation: 1.5s opacityOpen ease-in-out forwards;
+
+    h1{
+        display: flex;
+        font-size: calc( var(--title-fontsize) * 1.5);
+        gap: .5em;
+        img{
+            width: 1em;
+        }
+    }
+    p{
+        font-size: calc( var(--normal-fontSize) * 1.2);
+    }
+}
+.pauseScreen.close{
+    display: none;
+    animation: 1s opacityClose ease-in-out forwards;
+}
+@keyframes loadin {
+    from{
+        z-index: 100000;
+    }to{
+        z-index: 0;
+    }
+}
+@keyframes popUpTop {
+    from{
+        opacity: 0%;
+        transform: translateY(-10px) scale(.8);
+    }
+    to{
+        opacity: 100%;
+        transform: translateY(0px) scale(1);
+    }
+}
+
+@keyframes opacityClose {
+    from{
+        display: flex;
+        opacity: 100%;
+    }
+    to{
+        display: none;
+        opacity: 0;
+    }
+}
+@keyframes opacityOpen {
+    from{
+        display: none;
+        opacity: 0;
+    }
+    to{
+        display: flex;
+        opacity: 100%;
+    }
 }
 
 @keyframes currentblink {
