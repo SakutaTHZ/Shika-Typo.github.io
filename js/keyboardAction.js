@@ -341,7 +341,9 @@ async function fetchMovieLine() {
 fetchMovieLine()
 
 function getOfflineText(){
-    displayLetters(offlineTexts[Math.floor(Math.random()*offlineTexts.length)],10)  
+    displayLetters(offlineTexts[Math.floor(Math.random()*offlineTexts.length)],10)
+    typetrig = 0
+    current = 0;  
 }
 
 function ChangeKeyboard(element, target) {
