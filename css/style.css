@@ -318,6 +318,7 @@ section {
                 font-family: var(--font1);
                 color: var(--lightShadow);
                 padding: 3px .5px;
+                animation: .5s leJoltZoom linear;
             }
 
             span.right {
@@ -539,6 +540,11 @@ section {
 .pauseScreen.close{
     display: none;
     animation: 1s opacityClose ease-in-out forwards;
+}
+@keyframes leJoltZoom {
+    10% { font-size: 140% }
+    40% { font-size: 80% }
+    100% { font-size: 100% }
 }
 @keyframes loadin {
     from{
