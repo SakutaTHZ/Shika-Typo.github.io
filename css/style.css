@@ -8,6 +8,7 @@
     padding: 0%;
     font: inherit;
     font-family: var(--font1);
+    color: white;
 }
 
 img,
@@ -88,6 +89,9 @@ body {
         font-weight: bold;
         border-bottom: 1px solid var(--lightShadow);
         padding-bottom: 10px;
+    }
+    h1,h2{
+        color: white;
     }
 
     button {
@@ -183,7 +187,7 @@ section {
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: 2s cubic-bezier(0.68, -0.55, 0.265, 1.55),0s right linear;
+            transition: 1s cubic-bezier(0.68, -0.55, 0.265, 1.55),0s right linear,1s right linear;
 
             .menu,
             .menu::before,
@@ -274,6 +278,7 @@ section {
         .toggleNav {
             right: -40px;
             rotate: 180deg;
+            transition: 2s cubic-bezier(0.68, -0.55, 0.265, 1.55),0s right linear,0s right linear;
         }
 
         .logo {
@@ -318,7 +323,6 @@ section {
                 font-family: var(--font1);
                 color: var(--lightShadow);
                 padding: 3px .5px;
-                animation: .5s leJoltZoom linear;
             }
 
             span.right {
@@ -542,8 +546,8 @@ section {
     animation: 1s opacityClose ease-in-out forwards;
 }
 @keyframes leJoltZoom {
-    10% { font-size: 140% }
-    40% { font-size: 80% }
+    10% { font-size: 120% }
+    40% { font-size: 90% }
     100% { font-size: 100% }
 }
 @keyframes loadin {

@@ -14,6 +14,19 @@ var wpm = 0;
 var count = 0;
 var timerCounter = null;
 
+const offlineTexts = [
+    "he who fears being conquered is sure of defeat.",
+    "without passion man is a mere latent force and possibility, like the flint which awaits the shock of the iron before it can give forth its spark.  ",
+    "to avoid criticism, do nothing, say nothing, be nothing.",
+    "remember that the most valuable antiques are dear old friends.",
+    "we are wiser than we know.",
+    "to hell with circumstances, i create opportunities.",
+    "if you change the way you look at things, the things you look at change.",
+    "we may encounter many defeats, but we must not be defeated.",
+    "in the business world, everyone is paid in two coins: cash and experience. take the experience first; the cash will come later.",
+    "to acquire knowledge, one must study; but to acquire wisdom, one must observe.",
+]
+
 const wpmrate = {
     belowAverage: ["You need to try harder", "A turtle can type faster than you", "I fell asleep while waiting for you to type"],
     average: ["You have average typing speed", "That was Okay", "Try better next time"],
@@ -321,11 +334,15 @@ async function fetchMovieLine() {
         typetrig = 0
         current = 0;
     } catch (error) {
-        // console.error('Error fetching movie line:', error);
-        displayLetters("Technology frightens me to death. It's designed by engineers to impress other engineers. And they always come with instruction booklets that are written by engineers for other engineers — which is why almost no technology ever works.", 10)
+        console.error('Error fetching movie line:', error);
+        getOfflineText()
     }
 }
 fetchMovieLine()
+
+function getOfflineText(){
+    displayLetters(offlineTexts[Math.floor(Math.random()*offlineTexts.length)],10)  
+}
 
 function ChangeKeyboard(element, target) {
     document.documentElement.style.setProperty(`--${target}`, element.value)
