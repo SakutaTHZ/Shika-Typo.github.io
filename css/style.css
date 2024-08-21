@@ -109,6 +109,7 @@ input[type="text"],
     padding: 0;
     cursor: pointer;
     border-radius: 8px;
+    color: var(--bgcolor);
 }
 
 select,
